@@ -5,3 +5,24 @@
 **/*.py[cod]
 **/Thumbs.db
 
+
+# --- internal / agent working files — NEVER publish to this PUBLIC site repo ---
+.claude/
+CLAUDE.md
+.claude.json
+agent-runs/
+scratch/
+tmp/
+*.tmp
+*.log
+*.bak
+*.swp
+.DS_Store
+# agent docs / specs / memos (these live in ~/agent-runs, NOT in this repo)
+*-spec.md
+CD-[0-9]*.md
+session*.md
+relay*.md
+*playbook*.md
+notes*.md
+plan*.md
