@@ -43,7 +43,14 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="nav" id="top">
+<!-- The anchor target for "back to top". It must NOT be the sticky header: a sticky element is
+     pinned inside the viewport, so the browser considers it already in view and the jump does
+     nothing — on desktop it actually resolved to the document end and scrolled DOWN to the
+     footer. This span sits at document offset 0 and is never sticky, so the plain anchor works
+     with no JS at all. -->
+<span id="top" aria-hidden="true"></span>
+
+<header class="nav">
   <div class="wrap nav__in">
     <a class="brand" href="#top" aria-label="Mikhail Agladze — home">
       <!-- The mark: a neon brain, drawn once and reused as its own halo. The halo <g> is the
@@ -802,8 +809,22 @@
       if (mode() === 'hover') { close(); } else { clearTimeout(timer); }
     });
 
+    // Deep in the page the brand stops being a reveal trigger and becomes "home". The anchor
+    // alone would do it, but going through scrollTo lets reduced motion jump instead of glide
+    // without depending on the CSS scroll-behavior override.
+    function toTop (e) {
+      if (e) { e.preventDefault(); }
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+      });
+    }
+    var backToTop = document.querySelector('.foot a[href="#top"]');
+    if (backToTop) { backToTop.addEventListener('click', toTop); }
+
     brand.addEventListener('click', function (e) {
-      if (pointer === 'mouse') { return; }   // desktop click still follows the link to #top
+      if (!armed) { toTop(e); return; }            // hero out of view: the mark is the way back
+      if (pointer === 'mouse') { toTop(e); return; }
       e.preventDefault();
       if (mode() === 'tap') { close(); } else { open('tap'); }
     });
