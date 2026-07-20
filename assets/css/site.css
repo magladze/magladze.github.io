@@ -106,33 +106,28 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 .nav__in{ display:flex; align-items:center; justify-content:space-between; gap:var(--sp-2); min-height:64px; }
 .brand{ display:inline-flex; align-items:center; gap:.6rem; color:var(--text); text-decoration:none; font-weight:650; letter-spacing:-.01em; }
 
-/* ---- the hero handoff: monogram → portrait avatar --------------------------------
-   Both layers live in the SAME fixed 30px box, so the swap can never reflow the nav.
-   Only opacity/transform animate; expo-out, no overshoot, once per direction.        */
+/* ---- the mark: a neon brain, slow-pulsing ---------------------------------------
+   Fixed 30px box so the nav can never reflow. The halo is the same geometry blurred
+   behind the crisp core; only opacity + scale animate, both compositor-only, on a
+   5.6s ease-in-out cycle — a heartbeat, not a strobe.                               */
 .brand__id{ position:relative; width:30px; height:30px; flex:none; }
-.brand__mark,
-.brand__avatar{
-  position:absolute; inset:0; width:30px; height:30px;
-  transition:opacity .26s cubic-bezier(.16,1,.3,1), transform .52s cubic-bezier(.16,1,.3,1);
+.brand__brain{
+  position:absolute; inset:0; width:30px; height:30px; overflow:visible;
+  color:var(--accent);
 }
-.brand__mark{ color:var(--accent); opacity:1; transform:scale(1); }
-.brand__avatar{
-  opacity:0; transform:scale(.72) translateY(6px);
-  border-radius:50%; overflow:hidden;
-  transition-delay:.12s;
+.brain__core{ opacity:.94; }
+.brain__halo{
+  color:var(--accent); opacity:.42;
+  transform-box:view-box; transform-origin:50% 50%;
+  animation:brainPulse 5.6s cubic-bezier(.45,0,.55,1) infinite;
+  will-change:opacity, transform;
 }
-.brand__avatar img{ width:100%; height:100%; object-fit:cover; border-radius:50%; }
-.brand__ring{
-  position:absolute; inset:0; width:100%; height:100%; overflow:visible;
+@keyframes brainPulse{
+  0%,100%{ opacity:.30; transform:scale(.97); }
+  50%    { opacity:.92; transform:scale(1.07); }
 }
-.brand__ring circle{
-  fill:none; stroke:var(--accent); stroke-width:1.4;
-  stroke-dasharray:117.5; stroke-dashoffset:117.5;
-  transition:stroke-dashoffset .7s cubic-bezier(.16,1,.3,1) .18s;
-}
-:root[data-docked="true"] .brand__mark{ opacity:0; transform:scale(.72); }
-:root[data-docked="true"] .brand__avatar{ opacity:1; transform:scale(1) translateY(0); }
-:root[data-docked="true"] .brand__ring circle{ stroke-dashoffset:0; }
+.brand:hover .brain__core,
+.brand:focus-visible .brain__core{ opacity:1; }
 
 .nav__links{ display:flex; gap:1.6rem; list-style:none; margin:0; padding:0; min-width:0; }
 .nav__links li{ flex:none; }
@@ -435,6 +430,64 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 .foot a{ color:var(--muted); text-decoration:none; }
 .foot a:hover{ color:var(--accent); }
 
+/* ---------- the reveal ------------------------------------------------------------
+   position:fixed throughout, so the overlay is outside layout and contributes zero CLS.
+   Two open modes: "hover" (pointer/keyboard — scrim stays click-through so the mouse can
+   keep moving) and "tap" (touch — scrim becomes the dismiss target and the ✕ appears).  */
+.reveal{ position:fixed; inset:0; z-index:80; pointer-events:none; }
+.reveal__scrim{
+  position:absolute; inset:0; opacity:0;
+  background:rgba(7,10,15,.46);
+  backdrop-filter:blur(6px) saturate(.78); -webkit-backdrop-filter:blur(6px) saturate(.78);
+  transition:opacity .46s cubic-bezier(.16,1,.3,1);
+}
+.reveal__plate{
+  --x-in:-96%; --x-out:-7%;
+  position:absolute; left:0; top:50%; margin:0;
+  width:min(58vw, 760px);
+  opacity:0; filter:blur(16px);
+  transform:translate3d(var(--x-in), -50%, 0);
+  /* Feather EVERY edge, weighted to his face. A rectangle with four hard cuts reads as a
+     banner dropped on the page; dissolving all four edges is what makes it read as a
+     projection. One radial gradient, so no mask-composite support question. */
+  /* Radii are ~the box half-dimensions on purpose: the ellipse must actually REACH the edges,
+     or the stops all land inside the box and nothing feathers at all. 72%/62% puts the top and
+     bottom edges at .81 of the ray and the right edge at .97 — both inside the fade. */
+  -webkit-mask-image:radial-gradient(72% 62% at 30% 50%, #000 40%, rgba(0,0,0,.9) 62%, transparent 97%);
+          mask-image:radial-gradient(72% 62% at 30% 50%, #000 40%, rgba(0,0,0,.9) 62%, transparent 97%);
+  transition:transform .74s cubic-bezier(.16,1,.3,1),
+             filter    .62s cubic-bezier(.16,1,.3,1),
+             opacity   .40s cubic-bezier(.16,1,.3,1);
+  will-change:transform, filter, opacity;
+}
+.reveal__plate img{ display:block; width:100%; height:auto; }
+.reveal__close{
+  position:absolute; top:1.1rem; right:1.1rem; width:44px; height:44px;
+  display:none; place-items:center;
+  border:1px solid var(--line-2); border-radius:50%;
+  background:rgba(7,10,15,.72); color:var(--muted); cursor:pointer;
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+}
+.reveal__close svg{ width:20px; height:20px; }
+
+:root[data-reveal] .reveal__scrim{ opacity:1; }
+:root[data-reveal] .reveal__plate{
+  opacity:1; filter:blur(0); transform:translate3d(var(--x-out), -50%, 0);
+}
+/* Touch only: the overlay becomes interactive so tap-away dismisses. */
+:root[data-reveal="tap"] .reveal{ pointer-events:auto; }
+:root[data-reveal="tap"] .reveal__close{ display:grid; }
+
+@media (max-width:640px){
+  .reveal__plate{
+    --x-in:-108%; --x-out:2%; width:min(96vw, 540px);
+    /* Vertical radius deliberately BELOW 50% of the box so the top and bottom edges land late
+       on the ray — at 66% they sat at .76 and still read as a hard cut on a phone. */
+    -webkit-mask-image:radial-gradient(80% 56% at 44% 50%, #000 40%, rgba(0,0,0,.88) 64%, transparent 99%);
+            mask-image:radial-gradient(80% 56% at 44% 50%, #000 40%, rgba(0,0,0,.88) 64%, transparent 99%);
+  }
+}
+
 /* ---------- motion ---------- */
 .rise{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
 .rise.in{ opacity:1; transform:none; }
@@ -442,10 +495,18 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
   .rise{ opacity:1; transform:none; transition:none; }
   /* Final state immediately. The tint layer is driven by a JS-added class that never
      arrives under reduce, so it must be resolved here or the portrait would sit
-     permanently duotone. The dock still swaps — it just snaps instead of animating. */
+     permanently duotone. */
   .portrait__tint{ opacity:0 !important; transition:none !important; }
   .portrait img{ transform:none !important; animation:none !important; }
-  .brand__mark,.brand__avatar,.brand__ring circle{ transition:none !important; }
+  .brain__halo{ animation:none !important; opacity:.55 !important; transform:none !important; }
+  /* No slide, no focus-pull: the plate is already at its final position and simply fades.
+     These survive the blanket `*` duration clamp below on specificity, not source order. */
+  .reveal__plate{
+    transform:translate3d(var(--x-out), -50%, 0) !important;
+    filter:none !important;
+    transition:opacity .18s linear !important;
+  }
+  .reveal__scrim{ transition:opacity .18s linear !important; }
   *,*::before,*::after{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
 }
 /* Below 900px: avatar stays, parallax is dropped (small viewports scroll fast enough

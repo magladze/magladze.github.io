@@ -46,17 +46,31 @@
 <header class="nav" id="top">
   <div class="wrap nav__in">
     <a class="brand" href="#top" aria-label="Mikhail Agladze — home">
+      <!-- The mark: a neon brain, drawn once and reused as its own halo. The halo <g> is the
+           same geometry at a heavier stroke behind an SVG blur; only its opacity/scale animate,
+           so the slow pulse stays compositor-only. Zero raster bytes. -->
       <span class="brand__id">
-        <svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-          <path d="M14 46 L32 16 L50 46" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M22 38 H42" stroke="#F0B429" stroke-width="5" stroke-linecap="round"/>
+        <svg class="brand__brain" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <defs>
+            <filter id="brainHalo" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="2.6"/>
+            </filter>
+            <g id="brainPaths" fill="none" stroke="currentColor"
+               stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 47C13 45 8.5 38.5 11 31.5 6.5 27 9.5 18.5 16 17.5 17.5 11 25 8 31 11.5
+                       35 7.5 44 8.5 46 15 53 15 57 21.5 53.5 27.5 58 32.5 54.5 40.5 47 41.5
+                       46 47.5 38 51 32.5 47.5 29 50.5 23.5 50.5 21 47Z" stroke-width="3.2"/>
+              <path d="M31.5 11.5C30 19 33.5 24 31.5 32.5 30 40 32 44 31.5 48" stroke-width="2.4"/>
+              <path d="M17 20.5C22.5 22 23 28.5 18.5 30.5" stroke-width="2.4"/>
+              <path d="M45.5 20C40.5 22.5 41 29 46 31" stroke-width="2.4"/>
+              <path d="M22.5 38.5C26.5 36.5 30 39.5 28 43.5" stroke-width="2.4"/>
+              <path d="M39 36C42.5 35 45 37.5 44 40.5" stroke-width="2.4"/>
+              <path d="M31.5 48C31.5 51.5 30.5 53.2 29 54.2" stroke-width="2.8"/>
+            </g>
+          </defs>
+          <g class="brain__halo" filter="url(#brainHalo)"><use href="#brainPaths"/></g>
+          <g class="brain__core"><use href="#brainPaths"/></g>
         </svg>
-        <span class="brand__avatar" aria-hidden="true">
-          <img src="images/portrait-avatar.webp" alt="" width="192" height="192" loading="lazy" decoding="async">
-          <svg class="brand__ring" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
-            <circle cx="20" cy="20" r="18.7"/>
-          </svg>
-        </span>
       </span>
       <span class="brand__txt">Mikhail&nbsp;Agladze</span>
     </a>
@@ -537,28 +551,90 @@
 
 <!-- TODO(mike): if you want a portrait on the site, drop a real headshot at images/portrait.jpg and tell the agent — nothing here is a generated likeness of you, by design. -->
 <!-- TODO(mike): confirm you're happy describing the 2026 insurance engagement without naming the client. Your résumé names them; a public site is broader distribution, so it's genericized here. -->
+<!-- ============ the reveal — the full frame, on hover / focus / tap ============
+     Fixed overlay, so it can never shift layout. The plate flies in from the left and
+     resolves out of blur; the page behind dims and blurs but stays legible. Decorative
+     only (aria-hidden) — nothing here is content a reader would otherwise miss. -->
+<div class="reveal" id="reveal" aria-hidden="true">
+  <div class="reveal__scrim"></div>
+  <!-- Sources are deferred behind data-* and attached on idle (see the script below).
+       loading="lazy" does NOT defer this: the plate is position:fixed and therefore counts as
+       in-viewport, so the browser fetched it during first paint. Measured, not assumed. -->
+  <figure class="reveal__plate">
+    <picture>
+      <source data-srcset="images/reveal.webp" type="image/webp">
+      <img data-src="images/reveal.jpg" alt="" width="1120" height="696" decoding="async">
+    </picture>
+  </figure>
+  <button class="reveal__close" type="button" aria-label="Close the portrait">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
+</div>
+
 <!-- TODO(mike): résumé PDF download — supply one and it gets a button in the hero. -->
 <!-- TODO(mike): a real outcome metric for the proof bar (documents processed, hours saved, accuracy lift) would beat any of the four counts currently shown. -->
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // Hero handoff: monogram → portrait avatar in the nav. Same IntersectionObserver
-  // primitive as the reveals below; no scroll listeners, no layout reads.
-  // Observes the hero element itself — a zero-height sentinel is not a reliable
-  // IntersectionObserver target, which cost a debugging round to find.
+  // The reveal. Three input paths, because hover is a mouse-only affordance:
+  //   mouse    — pointerenter opens after a short intent delay, pointerleave closes
+  //   keyboard — focus-visible opens, blur closes, Escape closes and restores focus
+  //   touch    — tap toggles (and suppresses the #top navigation), tap-away or ✕ closes
+  // The intent delay matters: without it the plate fires every time the pointer crosses
+  // the brand on its way to the nav links.
   (function () {
-    var hero = document.querySelector('.hero');
-    if (!hero || !('IntersectionObserver' in window)) { return; }
-    new IntersectionObserver(function (entries) {
-      var e = entries[entries.length - 1];
-      // Docked once the hero has left the (inset) root and we are below its top edge.
-      // NB: test `top < 0`, not `bottom <= 0` — the -64px rootMargin means the hero stops
-      // intersecting while its bottom is still ~64px, so a bottom test evaluates false at
-      // the one moment the callback fires and never fires again.
-      var docked = !e.isIntersecting && e.boundingClientRect.top < 0;
-      document.documentElement.setAttribute('data-docked', docked ? 'true' : 'false');
-    }, { rootMargin: '-64px 0px 0px 0px', threshold: 0 }).observe(hero);
+    var brand = document.querySelector('.brand');
+    var overlay = document.getElementById('reveal');
+    if (!brand || !overlay) { return; }
+    var root = document.documentElement, timer = null, pointer = 'mouse', loaded = false;
+
+    // Attach the plate's sources once the page is otherwise done, so it stays out of the
+    // critical path but is decoded well before any realistic hover. open() forces it if
+    // someone gets there first.
+    function load () {
+      if (loaded) { return; }
+      loaded = true;
+      var s = overlay.querySelector('source'), i = overlay.querySelector('img');
+      if (s) { s.srcset = s.dataset.srcset; }
+      i.src = i.dataset.src;
+    }
+    if ('requestIdleCallback' in window) { requestIdleCallback(load, { timeout: 2500 }); }
+    else { setTimeout(load, 1200); }
+
+    function open (mode) { load(); clearTimeout(timer); root.setAttribute('data-reveal', mode); }
+    function close () { clearTimeout(timer); root.removeAttribute('data-reveal'); }
+    function mode () { return root.getAttribute('data-reveal'); }
+
+    brand.addEventListener('pointerdown', function (e) { pointer = e.pointerType || 'mouse'; });
+
+    brand.addEventListener('pointerenter', function (e) {
+      if ((e.pointerType || 'mouse') !== 'mouse') { return; }
+      timer = setTimeout(function () { open('hover'); }, 110);
+    });
+    brand.addEventListener('pointerleave', function (e) {
+      if ((e.pointerType || 'mouse') !== 'mouse') { return; }
+      if (mode() === 'hover') { close(); } else { clearTimeout(timer); }
+    });
+
+    brand.addEventListener('click', function (e) {
+      if (pointer === 'mouse') { return; }   // desktop click still follows the link to #top
+      e.preventDefault();
+      if (mode() === 'tap') { close(); } else { open('tap'); }
+    });
+
+    brand.addEventListener('focus', function () {
+      // :focus-visible keeps a mouse click from opening it a second time on the way to #top
+      if (brand.matches(':focus-visible') && !mode()) { open('hover'); }
+    });
+    brand.addEventListener('blur', function () { if (mode() === 'hover') { close(); } });
+
+    overlay.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && mode()) { close(); brand.focus(); }
+    });
   })();
 
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
