@@ -162,10 +162,10 @@
               designed around a client's actual data, tools and constraints — not a reference
               diagram. Document intelligence at scale where it genuinely moves the needle.</p>
             <ul class="ticks">
-              <li>RAG &amp; semantic retrieval</li>
-              <li>Agent runtimes &amp; tool orchestration</li>
-              <li>Evaluation harnesses for quality, latency and cost</li>
-              <li>Guardrails, offline benchmarks, online A/B</li>
+              <li><button type="button" class="cap__b" data-modal="m-rag" aria-haspopup="dialog">RAG &amp; semantic retrieval</button></li>
+              <li><button type="button" class="cap__b" data-modal="m-agents" aria-haspopup="dialog">Agent runtimes &amp; tool orchestration</button></li>
+              <li><button type="button" class="cap__b" data-modal="m-evals" aria-haspopup="dialog">Evaluation harnesses for quality, latency and cost</button></li>
+              <li><button type="button" class="cap__b" data-modal="m-guardrails" aria-haspopup="dialog">Guardrails, offline benchmarks, online A/B</button></li>
             </ul>
           </div>
         </article>
@@ -178,10 +178,10 @@
               ETL that hold up under production load, audit and change — across cloud
               platforms and legacy systems that still have to be carried forward.</p>
             <ul class="ticks">
-              <li>Warehouse &amp; lakehouse design</li>
-              <li>Spark / PySpark ETL at scale</li>
-              <li>SQL and NoSQL modeling</li>
-              <li>Master data management</li>
+              <li><button type="button" class="cap__b" data-modal="m-lakehouse" aria-haspopup="dialog">Warehouse &amp; lakehouse design</button></li>
+              <li><button type="button" class="cap__b" data-modal="m-spark" aria-haspopup="dialog">Spark / PySpark ETL at scale</button></li>
+              <li><button type="button" class="cap__b" data-modal="m-modeling" aria-haspopup="dialog">SQL and NoSQL modeling</button></li>
+              <li><button type="button" class="cap__b" data-modal="m-mdm" aria-haspopup="dialog">Master data management</button></li>
             </ul>
           </div>
         </article>
@@ -194,10 +194,10 @@
               and prompts, observability wired to SLAs, cost governance, and the runbooks a
               client's own team needs to operate what they've been handed.</p>
             <ul class="ticks">
-              <li>Terraform / IaC, cloud-native deployment</li>
-              <li>CI/CD for models and prompts</li>
-              <li>Observability &amp; incident playbooks</li>
-              <li>RBAC, secrets, PII minimization</li>
+              <li><button type="button" class="cap__b" data-modal="m-iac" aria-haspopup="dialog">Terraform / IaC, cloud-native deployment</button></li>
+              <li><button type="button" class="cap__b" data-modal="m-cicd" aria-haspopup="dialog">CI/CD for models and prompts</button></li>
+              <li><button type="button" class="cap__b" data-modal="m-obs" aria-haspopup="dialog">Observability &amp; incident playbooks</button></li>
+              <li><button type="button" class="cap__b" data-modal="m-sec" aria-haspopup="dialog">RBAC, secrets, PII minimization</button></li>
             </ul>
           </div>
         </article>
@@ -508,7 +508,6 @@
     <symbol id="lg-azure" viewBox="0 0 128 128"><path d="M43.983 4.653a5.911 5.911 0 015.6 4.022l35.91 106.396a5.911 5.911 0 01-5.603 7.802h41.38a5.917 5.917 0 004.8-2.465 5.909 5.909 0 00.798-5.34L90.961 8.672a5.91 5.91 0 00-5.602-4.022zm-1.336.478a5.92 5.92 0 00-5.61 4.029L1.132 115.55a5.91 5.91 0 005.6 7.8h28.893c1.239 0 2.446-.41 3.452-1.113a5.923 5.923 0 002.157-2.916l7.019-20.71-13.411-12.857c-.246-.273-1.353-2.274-.369-4.002 1.108-1.659 2.955-1.659 2.955-1.659h17.285l9.074-26.145L48.274 8.321c-.042-.205-.914-1.365-2.281-2.28-1.37-.915-3.345-.909-3.345-.909zm-4.88 75.74a2.724 2.724 0 00-1.86 4.718l37.83 35.31c1.101 1.03 2.502 1.631 4.007 1.631 0 0 1.282.068 2.055-.033 1.817-.273 3.525-1.768 4.09-2.39 1.457-1.939.794-4.95.794-4.95l-11.45-34.28z"/></symbol>
       </defs></svg>
       <div class="marq" aria-hidden="true">
-        <p class="marq__label">Technologies</p>
         <div class="marq__win">
           <div class="marq__track">
             <div class="marq__set">
@@ -665,11 +664,271 @@
   </button>
 </div>
 
+<!-- Capability modals. Draft copy in Mikhail's voice, written from the research briefs;
+     established practice is credited to the field, and no client, metric or testimonial is
+     invented anywhere in them. Inline rather than fetched so the substance is in the
+     document for search engines and for anyone without JS. -->
+<!-- Capability modals. Draft copy in Mikhail's voice, written from the research briefs;
+     established practice is credited to the field, and no client, metric or testimonial is
+     invented anywhere in them. Inline rather than fetched so the substance is in the
+     document for search engines and for anyone without JS. -->
+<!-- Capability modals. Draft copy in Mikhail's voice, written from the research briefs;
+     established practice is credited to the field, and no client, metric or testimonial is
+     invented anywhere in them. Inline rather than fetched so the substance is in the
+     document for search engines and for anyone without JS. -->
+<dialog class="modal" id="m-rag" aria-labelledby="m-rag-h">
+  <div class="modal__in">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p class="modal__kicker">AI architecture</p>
+    <h3 class="modal__h" id="m-rag-h">RAG &amp; semantic retrieval</h3>
+    <div class="modal__body">
+        <p>Nobody's retrieval problem is the vector database. It's that the one paragraph that mattered never made it into the prompt — and the model answered anyway, fluently.</p>
+        <p>The spine of this is settled and it isn't ours to claim: hybrid retrieval, dense fused with lexical, then a cross-encoder reranker over the top. If a system is still running pure vector search, that's a known fix and a cheap one.</p>
+        <p>The judgment is in everything the playbook doesn't cover. Chunking is a design decision, not a token count — headings, tables and code have to survive it, and a chunk that reads fine to a human can be orphaned to a retriever. Exact terms are where dense-only dies silently: part numbers, error codes, surnames.</p>
+        <p>And when an answer is wrong it is nearly always one of two things — the right chunk was never retrieved, or it was retrieved and ignored. Those have completely different fixes, so we measure them separately from day one. We force citation into generation and design the system to abstain when confidence is low, because something that will say <em>I don't know</em> is worth more than something that guesses well.</p>
+        <p class="modal__scope"><b>What we'd ask about yours:</b> what your corpus actually is, and what it costs you when an answer is wrong. A support deflector and a regulated decision are not the same system.</p>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal" id="m-agents" aria-labelledby="m-agents-h">
+  <div class="modal__in">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p class="modal__kicker">AI architecture</p>
+    <h3 class="modal__h" id="m-agents-h">Agent runtimes &amp; tool orchestration</h3>
+    <div class="modal__body">
+        <p>An agent demo takes an afternoon. The runtime takes the rest of the project — and the runtime is the part nobody demos.</p>
+        <p>The established answer is durable execution: treat a run as a checkpointed, resumable workflow rather than a stateless loop, keep control flow deterministic and testable, and let the model act only inside bounded nodes. MCP for tool interop, sandboxes for anything with side effects. That consensus is sound.</p>
+        <p>Where it gets genuinely hard is the part with no tutorial. Tool schemas are a context tax — load forty of them and reasoning degrades before the agent has done anything, so tools get disclosed on demand rather than dumped in. A long-running task has to survive a crash, a rate limit and a human pause without re-billing work it already finished.</p>
+        <p>Authority lives in the runtime, never in the agent: scoped allowlists, approval gates before anything irreversible, and no path by which a model escalates its own permissions. And the honest call, most of the time, is that one well-instrumented loop beats a multi-agent swarm — coordination overhead and cross-agent context contamination usually cost more than they buy.</p>
+        <p class="modal__scope"><b>What we'd ask about yours:</b> how long a task runs, what has to survive a crash, which actions can't be taken back — and what your team can actually operate at 3am.</p>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal" id="m-evals" aria-labelledby="m-evals-h">
+  <div class="modal__in">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p class="modal__kicker">AI architecture</p>
+    <h3 class="modal__h" id="m-evals-h">Evaluation harnesses for quality, latency and cost</h3>
+    <div class="modal__body">
+        <p><em>It feels better</em> is not a release criterion, and it is how most LLM features ship.</p>
+        <p>The discipline is well established: an offline harness on a curated golden set gating changes in CI, and online observability watching live traffic — on shared metric definitions, so an offline pass and a production trace mean the same thing. Match the evaluator to the task, and let deterministic checks carry the load wherever output has structure.</p>
+        <p>The craft is in refusing the easy version. An LLM judge is a measurement instrument, and an uncalibrated one is worse than no eval because it manufactures confidence — position bias, verbosity bias and self-preference are all live, all measurable, and all controllable by swapping order and anchoring against human labels.</p>
+        <p>Averages hide the thing that matters: a variant can win on mean quality while quietly degrading a high-value cohort or pushing p95 latency past budget, so the gate sits on slices and on cost per request, not the headline number. And golden sets rot — the day one stops absorbing new production failures it starts manufacturing false confidence, so it gets an owner and a lifecycle like any other asset.</p>
+        <p class="modal__scope"><b>What we'd ask about yours:</b> what decision this harness has to make and how often, who is authoritative on what <em>good</em> means, and the latency and cost budget it has to live inside.</p>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal" id="m-guardrails" aria-labelledby="m-guardrails-h">
+  <div class="modal__in">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p class="modal__kicker">AI architecture</p>
+    <h3 class="modal__h" id="m-guardrails-h">Guardrails, offline benchmarks, online A/B</h3>
+    <div class="modal__body">
+        <p>Three activities that only work as one loop: guardrails contain the downside, offline benchmarks stop a regression shipping, online experiments prove the change earned its place. Skip any one and you are shipping blind, shipping unsafe, or optimizing a proxy that never moves the business.</p>
+        <p>The palette is the field's — PII stripping at ingress, injection and jailbreak detection inline, dialog-policy control, output classification, schema validation. Defense in depth, each layer independently testable.</p>
+        <p>The judgment is in what you spend and where. Every guardrail costs latency, so each gets a budget and an explicit stance: fail open, or fail closed? A safety classifier on a customer-facing surface fails closed. A latency-sensitive enrichment check probably fails open. Getting that backwards is its own outage.</p>
+        <p>We reach for the cheapest control that does the job — a schema validator beats a model call — and reserve semantic judging for checks that genuinely need it. Online, stochastic outputs punish naive testing: peeking at an A/B without sequential methods manufactures winners, and a change that lifts the headline while raising refusal rate or cost per request hasn't won anything. Shadow, then canary with automated rollback, then ramp.</p>
+        <p class="modal__scope"><b>What we'd ask about yours:</b> what the worst plausible bad output is on this surface, who bears it — customer, regulator, brand — and what the business metric actually is.</p>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal" id="m-lakehouse" aria-labelledby="m-lakehouse-h">
+  <div class="modal__in">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p class="modal__kicker">Data architecture</p>
+    <h3 class="modal__h" id="m-lakehouse-h">Warehouse &amp; lakehouse design</h3>
+    <div class="modal__body">
+        <p>We open with a question people don't expect from someone selling architecture: does this need a lakehouse at all?</p>
+        <p>A great deal of big-data tooling gets deployed against workloads a single well-tuned node would serve faster and cheaper. Where consolidation is genuinely warranted the spine is settled — one governed copy on an open table format, Iceberg where multi-engine neutrality matters, Delta where the estate is already Spark-centric, medallion as a layout convention.</p>
+        <p>Two calls make or break it, and neither is the file format. First: the catalog is what actually locks you in. Access policies do not travel between catalogs, so a split catalog means governance you cannot enforce no matter what the architecture diagram claims — one catalog becomes the control plane and every engine routes through it.</p>
+        <p>Second: medallion is not a data model. Treat Bronze/Silver/Gold as modeling and you end up with three copies of unmodeled data and no conformed dimensions anywhere. Layout is a discipline too — reflexive partitioning produces a small-file explosion, and then you pay compute to scan it forever.</p>
+        <p class="modal__scope"><b>What we'd ask about yours:</b> real volume and growth, concurrency and latency SLAs, freshness — batch, CDC or streaming — and which engines are already in the building.</p>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal" id="m-spark" aria-labelledby="m-spark-h">
+  <div class="modal__in">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p class="modal__kicker">Data architecture</p>
+    <h3 class="modal__h" id="m-spark-h">Spark / PySpark ETL at scale</h3>
+    <div class="modal__body">
+        <p>Spark is easy to run and hard to run well. Jobs that pass in dev crawl in production, the bill climbs faster than the data, and correctness problems surface downstream weeks later.</p>
+        <p>The baseline isn't controversial: DataFrame and Spark SQL so Catalyst can do its job, adaptive query execution on, data landed in Delta or Iceberg rather than CSV, explicit schemas instead of inference, vectorized UDFs only where custom logic genuinely earns them.</p>
+        <p>What separates a fast pipeline from a folklore pipeline is that performance work is diagnostic before it is prescriptive. Sprinkling <code>.cache()</code> and <code>.repartition()</code> because a blog post said so is how a job gets slower and more expensive at the same time.</p>
+        <p>Read the Spark UI and the event log, find where the time actually goes — shuffle, skew, spill, small files, one straggler holding a stage hostage — then fix that specific thing: broadcast the right dimension, let AQE coalesce and de-skew, salt only the keys that need it.</p>
+        <p>Cost is a design constraint, not a monthly surprise. And correctness gets gated in the orchestration graph, because a pipeline that is green on infrastructure metrics while emitting wrong numbers is the worst failure mode available.</p>
+        <p class="modal__scope"><b>What we'd ask about yours:</b> volume and growth curve, batch or streaming, the freshness the business actually needs — and where it hurts today, cost or reliability.</p>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal" id="m-modeling" aria-labelledby="m-modeling-h">
+  <div class="modal__in">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p class="modal__kicker">Data architecture</p>
+    <h3 class="modal__h" id="m-modeling-h">SQL and NoSQL modeling</h3>
+    <div class="modal__body">
+        <p>Pick the database first and you will spend the next two years bending your data into it.</p>
+        <p>We start from access patterns and invariants — every read and write, its latency and throughput target, the consistency it genuinely requires, and the natural aggregate boundaries in the domain. That artifact chooses the store, not the other way round.</p>
+        <p>Said plainly: most of the time it chooses Postgres. JSONB, pgvector, partitioning and the extension ecosystem absorb a large share of what used to justify a separate NoSQL system, and every additional store is an operational tax paid forever. That isn't conservatism, it's arithmetic on the team that has to run it at 3am.</p>
+        <p>When a workload does warrant a non-relational model, it gets designed to that store's grain rather than a relational schema ported across: DynamoDB is query-first single-table design — enumerate the access patterns or don't bother; Cassandra is one table per query with a partition key chosen to bound partition size; document stores get aggregates bounded by domain edges, not unbounded arrays that work beautifully until the day they don't. Schema is versioned code, evolved expand-then-contract so deploys stay reversible.</p>
+        <p class="modal__scope"><b>What we'd ask about yours:</b> your top access patterns and their volumes, the p99 and consistency each one needs, and what your team can already operate.</p>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal" id="m-mdm" aria-labelledby="m-mdm-h">
+  <div class="modal__in">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p class="modal__kicker">Data architecture</p>
+    <h3 class="modal__h" id="m-mdm-h">Master data management</h3>
+    <div class="modal__body">
+        <p>Master data management is where good intentions go to die in a three-year program. We start from the money instead of the model.</p>
+        <p>Before choosing a domain or a tool, trace where inconsistent core entities are actually costing something — duplicate customers suppressing lifetime value and blocking cross-sell, unmatched suppliers hiding spend leverage, party ambiguity failing KYC. Master the one domain that pays for itself, define the golden record to the precision that use case needs, prove it, then widen.</p>
+        <p>The field's toolkit is real and we use it: standardization and blocking, probabilistic and ML-assisted matching rather than brittle deterministic rules, survivorship and trust scoring with an audit trail, and the four canonical styles — registry, consolidation, coexistence, transactional hub — sized against the actual integration topology.</p>
+        <p>The judgment is in what to refuse. The boil-the-ocean multidomain hub that dies before it ships. Match precision treated as a single number, when a marketing merge and an AML screen are nowhere near the same bar. And the quiet killer: mastering entities beautifully and never writing them back to the operational systems where transactions happen — a golden record nobody consumes is a very expensive spreadsheet.</p>
+        <p class="modal__scope"><b>What we'd ask about yours:</b> which entity is bleeding the most revenue or risk right now, how many systems define it, and whether the trusted record has to flow back.</p>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal" id="m-iac" aria-labelledby="m-iac-h">
+  <div class="modal__in">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p class="modal__kicker">Delivery &amp; MLOps</p>
+    <h3 class="modal__h" id="m-iac-h">Terraform / IaC, cloud-native deployment</h3>
+    <div class="modal__body">
+        <p>Infrastructure assembled by console clicks can't be reproduced, can't be reviewed, and can't tell you what is actually running versus what someone declared eighteen months ago.</p>
+        <p>The practice is mature: versioned modular Terraform — or OpenTofu where license posture matters — remote state with native locking, state isolated per environment, secrets kept out of state entirely, and every change through a pipeline that runs plan, policy checks, a security scan and a cost diff before a human opinion enters the room.</p>
+        <p>Two distinctions do most of the work. One: provisioning the platform and delivering the application onto it are different concerns, and blurring them is why release day is frightening — Terraform stands up the durable substrate, application delivery rides its own pipeline on top.</p>
+        <p>Two: IaC as ceremony is worse than no IaC. Adopting Terraform and still applying from a laptop with no tests and no policy buys the overhead without the guarantee, and leaves you believing something untrue about your own estate. Drift detection matters precisely because the console is still there and somebody will use it at 2am.</p>
+        <p class="modal__scope"><b>What we'd ask about yours:</b> what is actually deployed today, where state and secrets live right now, and how a change currently reaches production.</p>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal" id="m-cicd" aria-labelledby="m-cicd-h">
+  <div class="modal__in">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p class="modal__kicker">Delivery &amp; MLOps</p>
+    <h3 class="modal__h" id="m-cicd-h">CI/CD for models and prompts</h3>
+    <div class="modal__body">
+        <p>A prompt is a code change. It reaches users when machinery says it is safe, not when a reviewer feels good about it.</p>
+        <p>The mechanics are known: prompts in version control rather than inline strings, eval-gated CI on every change touching a prompt, model or retrieval config, layered assertions with cheap deterministic checks first, and staged rollout — shadow, canary with automated rollback, then ramp.</p>
+        <p>The judgment is in what you pin and what you catch. A prompt version means little on its own; the revertible unit is the prompt plus the model ID, decoding parameters, tool schemas and the retrieval snapshot, pinned together as one addressable thing. Do that and rollback is a config toggle instead of a fire drill.</p>
+        <p>Then there is the failure mode nobody plans for: the provider updates a hosted model underneath you and ships a change you never gated — so versions get pinned and the suite re-runs when a provider moves. And eval theater is real. A green pipeline on a stale, undersized, aggregate-only golden set is worse than no pipeline, because now the whole team trusts it.</p>
+        <p class="modal__scope"><b>What we'd ask about yours:</b> what actually breaks if a bad output ships, what ground truth exists to seed a golden set, and how often your providers move underneath you.</p>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal" id="m-obs" aria-labelledby="m-obs-h">
+  <div class="modal__in">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p class="modal__kicker">Delivery &amp; MLOps</p>
+    <h3 class="modal__h" id="m-obs-h">Observability &amp; incident playbooks</h3>
+    <div class="modal__body">
+        <p>Most AI systems in production are observable at exactly the layer where nothing important fails. CPU is fine. Latency is fine. The answers have been quietly wrong for a week.</p>
+        <p>The instrumentation story is settled and vendor-neutral: OpenTelemetry's GenAI conventions, so every model call, retrieval, agent hop and tool invocation is a span carrying tokens, cost, latency and outcome. SLIs defined on outcomes rather than only the four golden signals, and drift tests matched to the signal you're actually watching.</p>
+        <p>Where it gets real is that logging is not evaluation. Capturing every prompt and response into traces nobody scores buys storage cost and a false sense of control. The loop has to close: an online sampling layer scores live traffic, and whatever it catches becomes a labeled offline test, so the same failure cannot happen twice.</p>
+        <p>Runbooks rot the same way — written once, never rehearsed, drifting out of sync with the live system and the org chart, so they fail exactly when they are needed. We rehearse them, and we decide up front what even counts as an incident here, because <em>the model is being a bit worse</em> has no pager semantics until somebody makes that call deliberately.</p>
+        <p class="modal__scope"><b>What we'd ask about yours:</b> which failure mode genuinely threatens revenue and trust in your system, and who gets paged when it does.</p>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal" id="m-sec" aria-labelledby="m-sec-h">
+  <div class="modal__in">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p class="modal__kicker">Delivery &amp; MLOps</p>
+    <h3 class="modal__h" id="m-sec-h">RBAC, secrets, PII minimization</h3>
+    <div class="modal__body">
+        <p>Access, secrets and personal data are one control plane, not three checklists — in an ML system they fail together. A broad service account, a long-lived key in CI and un-minimized training data are the same breach at three different points.</p>
+        <p>The direction of travel is clear: authorization as code, with coarse stable roles in RBAC and everything genuinely per-tenant or per-purpose in a policy engine; zero standing privilege for workloads through workload identity and short-TTL brokered secrets; PII detection and de-identification before ingestion rather than after.</p>
+        <p>The discipline is in the leaks nobody diagrams. Minimization is not a one-time step — personal data walks back in through application logs, tracing spans, prompt and response capture, and evaluation datasets, which is precisely where people stop looking.</p>
+        <p>Enforcement belongs at the lowest layer that can hold it: if the warehouse can do row and column masking natively, the rule goes there, because an application-layer check only protects the paths that go through the application. And <em>anonymized</em> is a claim, not a label — differential privacy with an unstated epsilon is marketing, not a guarantee.</p>
+        <p class="modal__scope"><b>What we'd ask about yours:</b> which data classes are genuinely in scope, where identity already lives, and how much PII utility the model actually needs.</p>
+    </div>
+  </div>
+</dialog>
+
+
+
 <!-- TODO(mike): résumé PDF download — supply one and it gets a button in the hero. -->
 <!-- TODO(mike): a real outcome metric for the proof bar (documents processed, hours saved, accuracy lift) would beat any of the four counts currently shown. -->
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+
+  // Capability modals. Native <dialog> + showModal(), so the focus trap, ESC, inert
+  // background and focus restoration are the platform's rather than reimplemented. The two
+  // it doesn't give you are backdrop-click-to-close and locking the page behind it.
+  (function () {
+    var openers = document.querySelectorAll('.cap__b');
+    if (!openers.length || !window.HTMLDialogElement) { return; }
+    var root = document.documentElement;
+
+    function shut (dlg) { dlg.close(); }
+
+    openers.forEach(function (btn) {
+      var dlg = document.getElementById(btn.dataset.modal);
+      if (!dlg) { return; }
+      btn.addEventListener('click', function () {
+        dlg.showModal();
+        root.classList.add('modal-open');
+      });
+      // Backdrop click: the dialog element fills only its own box, so a click whose target
+      // IS the dialog landed on the backdrop around it.
+      dlg.addEventListener('click', function (e) {
+        if (e.target === dlg) { shut(dlg); }
+      });
+      dlg.querySelector('.modal__x').addEventListener('click', function () { shut(dlg); });
+      dlg.addEventListener('close', function () { root.classList.remove('modal-open'); });
+    });
+  })();
 
   // The reveal. Three input paths, because hover is a mouse-only affordance:
   //   mouse    — pointerenter opens after a short intent delay, pointerleave closes

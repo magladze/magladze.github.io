@@ -232,6 +232,24 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 .ticks li{ position:relative; padding-left:1.35rem; font-size:var(--t--1); color:#B6C4D6; }
 .ticks li::before{ content:""; position:absolute; left:0; top:.55em; width:6px; height:6px; border-radius:50%; background:var(--accent); opacity:.85; }
 
+/* Each bullet opens its own modal. A real <button> — it does something, and it has to be
+   reachable and operable by keyboard without any of it being reinvented. */
+.cap__b{
+  appearance:none; -webkit-appearance:none; background:none; border:0;
+  font:inherit; color:inherit; text-align:left; cursor:pointer;
+  /* Padding gives the control a ≥24px target (WCAG 2.5.8 — a standalone button, unlike a
+     link inside a sentence, gets no exemption); the matching negative margin gives the
+     space straight back to the layout, so the list rhythm and the bullet dots don't move.
+     Measured 21px before this. */
+  display:block; padding:.34rem 0; margin:-.34rem 0;
+  transition:color .2s ease, text-shadow .2s ease;
+}
+.cap__b:hover,
+.cap__b:focus-visible{ color:var(--accent); text-shadow:0 0 18px var(--glow); }
+.ticks li:hover::before,
+.ticks li:has(.cap__b:focus-visible)::before{ opacity:1; box-shadow:0 0 0 4px var(--glow); }
+.cap__b:focus-visible{ outline:2px solid var(--accent); outline-offset:6px; border-radius:4px; }
+
 /* ---------- work ---------- */
 .work{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--sp-4); }
 .work__item{
@@ -443,11 +461,7 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
    is fixed by the mark size, so it contributes nothing to CLS. Decorative: every mark
    here is also a word in the chip lists below, which is what a screen reader gets.     */
 .lg-defs{ position:absolute; width:0; height:0; overflow:hidden; }
-.marq{ margin:0 0 var(--sp-3); }
-.marq__label{
-  margin:0 0 .9rem; font-size:var(--t--1); font-weight:600;
-  letter-spacing:.14em; text-transform:uppercase; color:var(--dim);
-}
+.marq{ margin:0 0 var(--sp-3); }   /* unlabeled by design — the section heading is 'Stack' */
 .marq__win{
   overflow:hidden;
   /* fade the marks into the background at both ends so the loop point is never the
@@ -495,6 +509,67 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
   .lg{ transition:none; }
   .lg:hover{ transform:none; }
 }
+
+/* ---------- capability modals -----------------------------------------------------
+   Native <dialog> + showModal(): the focus trap, the ESC handling, the inert background
+   and focus restoration are the platform's, correct, and not worth reimplementing.
+   Backdrop-click and scroll-lock are the two the platform doesn't give you.          */
+.modal{
+  padding:0; border:1px solid var(--line-2); border-radius:var(--r);
+  background:var(--surface); color:var(--text);
+  width:min(46rem, calc(100vw - 2.5rem)); max-height:min(88vh, 56rem);
+  overflow:auto; overscroll-behavior:contain;
+  box-shadow:0 40px 120px -40px #000;
+  opacity:0; transform:translate3d(0,14px,0) scale(.985);
+  transition:opacity .34s cubic-bezier(.16,1,.3,1), transform .44s cubic-bezier(.16,1,.3,1),
+             overlay .44s allow-discrete, display .44s allow-discrete;
+}
+.modal[open]{ opacity:1; transform:none; }
+@starting-style{ .modal[open]{ opacity:0; transform:translate3d(0,14px,0) scale(.985); } }
+.modal::backdrop{
+  background:rgba(4,6,10,.66);
+  -webkit-backdrop-filter:blur(7px) saturate(.8); backdrop-filter:blur(7px) saturate(.8);
+}
+.modal__in{ position:relative; padding:clamp(1.5rem, 3.4vw, 2.15rem); }
+.modal__x{
+  position:absolute; top:.9rem; right:.9rem; width:44px; height:44px;
+  display:grid; place-items:center; cursor:pointer;
+  border:1px solid var(--line-2); border-radius:50%;
+  background:rgba(7,10,15,.6); color:var(--muted);
+  transition:color .2s ease, border-color .2s ease;
+}
+.modal__x:hover,.modal__x:focus-visible{ color:var(--text); border-color:var(--accent); }
+.modal__x svg{ width:20px; height:20px; }
+.modal__kicker{
+  margin:0 0 .5rem; font-size:var(--t--1); font-weight:650;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--accent);
+}
+.modal__h{ margin:0 0 1rem; font-size:var(--t-2); line-height:1.2; padding-right:3rem; }
+/* Reading measure, generous leading — this is the one place on the site that is genuinely
+   long-form, and it should be a pleasure rather than a cramped tooltip. */
+.modal__body{ max-width:38rem; }
+.modal__body p{ margin:0 0 .9rem; font-size:var(--t-0); line-height:1.62; color:#C6D3E4; }
+.modal__body p:first-child{ font-size:var(--t-1); line-height:1.45; color:var(--text); }
+.modal__body em{ color:var(--text); font-style:italic; }
+.modal__body code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.88em;
+  background:rgba(255,255,255,.06); padding:.1em .35em; border-radius:4px;
+}
+.modal__scope{
+  margin-top:1.25rem !important; padding-top:1rem; border-top:1px solid var(--line);
+  color:var(--muted) !important; font-size:var(--t--1) !important;
+}
+.modal__scope b{ color:var(--accent); font-weight:650; }
+@media (max-width:640px){
+  .modal{ width:100vw; max-width:100vw; max-height:92vh; border-radius:var(--r) var(--r) 0 0;
+          margin:auto auto 0; border-bottom:0; }
+}
+@media (prefers-reduced-motion: reduce){
+  .modal{ transition:opacity .14s linear, overlay .14s allow-discrete, display .14s allow-discrete;
+          transform:none !important; }
+  @starting-style{ .modal[open]{ transform:none; } }
+}
+html.modal-open{ overflow:hidden; }
 
 /* ---------- the reveal ------------------------------------------------------------
    position:fixed throughout, so the overlay is outside layout and contributes zero CLS.
