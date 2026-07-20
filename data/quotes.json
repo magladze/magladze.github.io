@@ -240,78 +240,335 @@
     "type": "invented-mikhail"
   },
   {
-    "text": "Painpoint: RAG demos dazzle but production retrieval returns confident nonsense the moment queries drift off the demo script. We solve it by treating retrieval as an engineering discipline, not a vibe: chunking tuned to the document structure, hybrid semantic-plus-keyword ranking, and a retrieval eval set that fails the build when recall on real user queries drops.",
-    "author": "Mikhail Agladze",
-    "type": "painpoint-solution"
+    "text": "A distributed system is one in which the failure of a computer you didn't even know existed can render your own computer unusable.",
+    "author": "Leslie Lamport",
+    "type": "real-researcher"
   },
   {
-    "text": "Painpoint: your agent works in the notebook, then loops, double-calls tools, and burns tokens the instant a real user goes off-path. We give the runtime a spine: typed tool contracts, explicit state, step budgets, and deterministic fallbacks, so the agent fails closed and legibly instead of wandering.",
-    "author": "Mikhail Agladze",
-    "type": "painpoint-solution"
+    "text": "Everything fails all the time.",
+    "author": "Werner Vogels",
+    "type": "real-researcher"
   },
   {
-    "text": "Painpoint: nobody can tell whether the last prompt change made the system better or worse, so every release is a gut call. We stand up an evaluation harness first, tied to labeled cases that mirror your domain, so quality becomes a number you can regress against before anything ships.",
-    "author": "Mikhail Agladze",
-    "type": "painpoint-solution"
+    "text": "Program testing can be used to show the presence of bugs, but never to show their absence!",
+    "author": "Edsger W. Dijkstra",
+    "type": "real-researcher"
   },
   {
-    "text": "Painpoint: guardrails get bolted on after an embarrassing output makes it to a customer. We build the guardrail and benchmark layer up front and wire it to A/B, so unsafe or off-policy responses are caught, measured, and compared between variants instead of discovered in a support ticket.",
-    "author": "Mikhail Agladze",
-    "type": "painpoint-solution"
+    "text": "Data dominates. If you've chosen the right data structures and organized things well, the algorithms will almost always be self-evident.",
+    "author": "Rob Pike",
+    "type": "real-researcher"
   },
   {
-    "text": "Painpoint: the warehouse grew by accretion, so every new question means a three-week archaeology dig through undocumented tables. We design the warehouse and lakehouse with clear layers, conformed dimensions, and documented grain, so analysts self-serve instead of filing tickets to the data team.",
-    "author": "Mikhail Agladze",
-    "type": "painpoint-solution"
+    "text": "In distributed systems, suspicion, pessimism, and paranoia pay off.",
+    "author": "Martin Kleppmann",
+    "type": "real-researcher"
   },
   {
-    "text": "Painpoint: the Spark jobs run, but they shuffle the whole dataset, cost a fortune, and fall over when volume doubles. We write PySpark ETL that respects partitioning, pushes filters down, and avoids the skew traps, so the pipeline scales with the data instead of against your cloud bill.",
-    "author": "Mikhail Agladze",
-    "type": "painpoint-solution"
+    "text": "Most of us working in this field don't use this terminology. We've called it either machine learning, control theory, engineering, or just statistics. I think it's a bit unfortunate that that term has now been brought back to refer to all these engineering developments.",
+    "author": "Michael I. Jordan",
+    "type": "real-researcher"
   },
   {
-    "text": "Painpoint: teams reach for NoSQL because it is trendy, then reinvent joins and transactions badly in application code. We model to the access pattern, not the fashion: relational where you need integrity and joins, document or key-value where you genuinely need scale and flexible shape, and we say which and why.",
-    "author": "Mikhail Agladze",
-    "type": "painpoint-solution"
+    "text": "There are two ways of constructing a software design: One way is to make it so simple that there are obviously no deficiencies, and the other way is to make it so complicated that there are no obvious deficiencies. The first method is far more difficult.",
+    "author": "C. A. R. (Tony) Hoare",
+    "type": "real-researcher"
   },
   {
-    "text": "Painpoint: the same customer exists five times across five systems with five spellings, and every report quietly disagrees with itself. We put real master data management in place with survivorship rules and stable identifiers, so there is one version of the customer that every downstream system trusts.",
-    "author": "Mikhail Agladze",
-    "type": "painpoint-solution"
+    "text": "Complexity is incremental: you have to sweat the small stuff.",
+    "author": "John Ousterhout",
+    "type": "real-researcher"
   },
   {
-    "text": "Painpoint: your infrastructure lives in someone's memory and a pile of console clicks, so nobody can reproduce it and everybody is afraid to touch it. We put it in Terraform with modules and state discipline, so environments are reproducible, reviewable, and no longer one resignation away from unrecoverable.",
-    "author": "Mikhail Agladze",
-    "type": "painpoint-solution"
+    "text": "The complexity of software is an essential property, not an accidental one.",
+    "author": "Fred Brooks",
+    "type": "real-researcher",
+    "gloss": "Some of software's hard parts aren't tooling problems you can buy your way out of — they're baked into the problem itself. No framework removes them."
   },
   {
-    "text": "Painpoint: models and prompts get updated by hand in production, and no one can say which version is actually live. We give models and prompts the same CI/CD rigor as code: versioned, tested against eval gates, and promoted through environments, so a rollback is one command, not an incident.",
-    "author": "Mikhail Agladze",
-    "type": "painpoint-solution"
+    "text": "When solving a problem of interest, do not solve a more general problem as an intermediate step. Try to get the answer that you really need but not a more general one.",
+    "author": "Vladimir Vapnik",
+    "type": "real-researcher",
+    "gloss": "Solve the exact question in front of you. Detouring through a bigger, 'more general' problem just burns data and piles on error you never needed."
   },
   {
-    "text": "Painpoint: when the system misbehaves at 2am, you are grepping raw logs with no idea which step failed or what it cost. We instrument the pipeline with tracing, structured logs, and clear signals, and pair it with incident playbooks, so on-call follows a runbook instead of improvising in the dark.",
-    "author": "Mikhail Agladze",
-    "type": "painpoint-solution"
+    "text": "Integration points are the number-one killer of systems.",
+    "author": "Michael T. Nygard",
+    "type": "real-researcher"
   },
   {
-    "text": "Painpoint: everyone has admin, secrets sit in a config file, and PII flows wherever it happens to land. We enforce least-privilege RBAC, put secrets in a managed store, and classify and mask PII at the boundary, so access is scoped and sensitive data is handled deliberately, not by accident.",
-    "author": "Mikhail Agladze",
-    "type": "painpoint-solution"
+    "text": "Garbage doesn't turn into gold, no matter how much math you throw at it.",
+    "author": "Cassie Kozyrkov",
+    "type": "real-researcher"
   },
   {
-    "text": "Painpoint: the chatbot cites documents that say the opposite of its answer, and legal has noticed. We ground generation in retrieval you can inspect, attach source attribution to every claim, and evaluate faithfulness, so answers stay tethered to what the corpus actually says.",
-    "author": "Mikhail Agladze",
-    "type": "painpoint-solution"
+    "text": "Beware of bugs in the above code; I have only proved it correct, not tried it.",
+    "author": "Donald Knuth",
+    "type": "real-researcher"
   },
   {
-    "text": "Painpoint: analytics reads from the production database, so every heavy query threatens the app and every schema change breaks a dashboard. We separate operational and analytical planes with proper ingestion into the warehouse, so reporting scales independently and never puts the transactional system at risk.",
-    "author": "Mikhail Agladze",
-    "type": "painpoint-solution"
+    "text": "Simplicity does not precede complexity, but follows it.",
+    "author": "Alan Perlis",
+    "type": "real-researcher",
+    "gloss": "You don't arrive at a clean design first. Simplicity is what's left after you've fought through the mess and actually understood it."
   },
   {
-    "text": "Painpoint: pipelines silently pass data that is late, malformed, or half-empty, and the breakage only surfaces in an executive dashboard weeks later. We put data quality checks and contracts at ingestion, so bad data is quarantined and flagged at the door rather than propagating downstream.",
+    "text": "A complex system that works is invariably found to have evolved from a simple system that worked.",
+    "author": "John Gall",
+    "type": "real-researcher",
+    "gloss": "Working complex systems are grown, not dropped in fully formed. Start simple, get it working, then let it earn its complexity."
+  },
+  {
+    "text": "Complex systems run as broken systems. The system continues to function because it contains so many redundancies and because people can make it function, despite the presence of many flaws.",
+    "author": "Richard I. Cook",
+    "type": "real-researcher",
+    "gloss": "Every production system is quietly running with broken parts. It stays up because of redundancy and the people patching around the cracks — not because it's flawless."
+  },
+  {
+    "text": "The first principle is that you must not fool yourself — and you are the easiest person to fool.",
+    "author": "Richard Feynman",
+    "type": "real-philosopher"
+  },
+  {
+    "text": "Perfection is finally attained not when there is no longer anything to add, but when there is no longer anything to take away.",
+    "author": "Antoine de Saint-Exupéry",
+    "type": "real-philosopher",
+    "gloss": "Mikhail: You are not done when there's nothing left to bolt on — you're done when nothing more can be removed without breaking it. The production system is the one that's been stripped, not the one that's been decorated."
+  },
+  {
+    "text": "Extraordinary claims require extraordinary evidence.",
+    "author": "Carl Sagan",
+    "type": "real-philosopher"
+  },
+  {
+    "text": "Civilization advances by extending the number of important operations which we can perform without thinking about them.",
+    "author": "Alfred North Whitehead",
+    "type": "real-philosopher",
+    "gloss": "Mikhail: Progress is measured by how much you no longer have to think about. Every operation you can trust blind — the deploy, the failover, the rollback — is one you've earned the right to stop watching. That's what infrastructure is for."
+  },
+  {
+    "text": "We know more than we can tell.",
+    "author": "Michael Polanyi",
+    "type": "real-philosopher",
+    "gloss": "Mikhail: The judgment that keeps a system alive under load rarely fits in a runbook. Real expertise is the part that never made it into the docs — and it's the part you're actually paying for."
+  },
+  {
+    "text": "A theory which is not refutable by any conceivable event is non-scientific. Irrefutability is not a virtue of a theory (as people often think) but a vice.",
+    "author": "Karl Popper",
+    "type": "real-philosopher",
+    "gloss": "Mikhail: If a claim can't fail a test, it isn't a result — it's decoration. A model you can't break is a model you can't trust. Demand the experiment that could prove you wrong."
+  },
+  {
+    "text": "What information consumes is rather obvious: it consumes the attention of its recipients. Hence a wealth of information creates a poverty of attention.",
+    "author": "Herbert A. Simon",
+    "type": "real-philosopher",
+    "gloss": "Mikhail: More dashboards, more metrics, more logs — none of it is free. Every signal you add spends the one budget that doesn't scale: attention. Restraint in what you surface is itself an engineering decision."
+  },
+  {
+    "text": "Everything in war is very simple, but the simplest thing is difficult.",
+    "author": "Carl von Clausewitz",
+    "type": "real-philosopher",
+    "gloss": "Mikhail: On the whiteboard every plan works. Friction — the missing credential, the flaky link, the 2am page — is the whole difference between war on paper and war. That gap is where production systems are actually built."
+  },
+  {
+    "text": "The hardest single part of building a software system is deciding precisely what to build.",
+    "author": "Frederick P. Brooks Jr.",
+    "type": "real-philosopher"
+  },
+  {
+    "text": "A bad system will beat a good person every time.",
+    "author": "W. Edwards Deming",
+    "type": "real-philosopher"
+  },
+  {
+    "text": "Fools ignore complexity. Pragmatists suffer it. Some can avoid it. Geniuses remove it.",
+    "author": "Alan J. Perlis",
+    "type": "real-philosopher"
+  },
+  {
+    "text": "The victorious strategist only seeks battle after the victory has been won, whereas he who is destined to defeat first fights and afterwards looks for victory.",
+    "author": "Sun Tzu",
+    "type": "real-philosopher",
+    "gloss": "Mikhail: The outcome is decided before the fight — in the preparation, the architecture, the reserve you built in advance. If you're improvising a win under load, you already lost the design phase."
+  },
+  {
+    "text": "Retrieval doesn't fail loudly. It hands you something plausible, and plausibility is the most expensive lie in the stack.",
     "author": "Mikhail Agladze",
-    "type": "painpoint-solution"
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "The hard part of RAG was never the retrieval or the generation. It was admitting your own documents contradict each other.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "An agent is a loop with opinions. Give it too many tools and it will find a way to be confidently lost.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Autonomy is not a feature you add. It's a budget you spend, and most systems overdraw on the first turn.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "If you can't say what wrong looks like before you ship, you didn't build a system. You built a mood.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Every model looks brilliant until you write the eval that would embarrass it. Write that eval first.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "A benchmark you cannot lose teaches you nothing.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Schema is where you decide, on purpose, what you are willing to be wrong about later.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Name your tables for the person who inherits them angry and underslept. Someone will.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Reproducibility isn't a virtue. It's the difference between an incident and a mystery.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "The model in the notebook and the model in production share weights, not behavior.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Orchestration isn't making the steps run. It's deciding, in advance, what a failing step is allowed to do to the ones downstream.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Retries hide the bug you needed to see. Backoff is not forgiveness.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "A demo is a promise made in perfect weather.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "The demo answers the question you asked. The system survives the ones you didn't.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Anyone can make it work once. Engineering is the tax you pay to make it work the ten-thousandth time, unattended, at 3 a.m.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Garbage in, garbage out was always too kind. These systems turn garbage in into confident, well-formatted garbage out.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Data quality isn't a cleanup step. It's a line you hold against entropy, and entropy is patient.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Latency is a design decision. You either make it on purpose or discover it in production.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Every token spent to look smart is a token you can't spend to be right.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Cost discipline isn't stinginess. It's the humility to admit most of your context window is decoration.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Models rarely fail in the middle. They fail at the joins, where trust is handed from one component to the next without checking the receipt.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "The interesting bugs don't live inside the model. They live in the gap between what it returned and what you assumed it meant.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Integration is where confident components go to disagree.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Hype compounds daily. Evidence compounds slower, and it's the only kind that pays out.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "The strongest thing you can say about a system is a number you measured twice.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "It usually works is a sentence with a body count.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Confidence is cheap. Calibration is the whole job.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "If you can't draw the failure on a napkin, you don't understand the system yet. You're just standing near it.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Complexity you can explain is architecture. Complexity you can't is debt with good posture.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "The senior move is deletion. Most systems are drowning in code written to reassure someone, not to work.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Every green dashboard is an argument. Ask it what it chose not to measure.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Averages are where outages hide. The system dies in the tail, and the tail is where your users actually live.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Scale doesn't create problems. It removes the slack that was hiding them.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Fine-tuning is what you reach for after you've run out of cheaper ways to have been more careful.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "You don't get to call it intelligence until it knows where its knowledge ends, and stops there.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
   }
 ]

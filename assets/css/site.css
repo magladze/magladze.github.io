@@ -534,8 +534,9 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 }
 .q__layer[data-len="s"] .q__text{ font-size:var(--t-2); }
 .q__layer[data-len="l"] .q__text{ font-size:var(--t-0); line-height:1.55; text-wrap:pretty; }
-/* The painpoint lines are prose ("Painpoint: … We solve it by …"), not sayings. Curly quotes
-   around them read as a misquotation, so the marks come off for that type only. */
+/* Kept deliberately though no entry currently uses this type: the painpoint→solution lines
+   moved to the capability modals, and if any come back to the stream they are prose, not
+   sayings — curly quotes around "Painpoint: … We solve it by …" read as a misquotation. */
 .q__layer[data-type="painpoint-solution"] .q__text::before,
 .q__layer[data-type="painpoint-solution"] .q__text::after{ content:none; }
 .q__text::before{ content:"\201C"; color:var(--accent); margin-right:.1em; }
