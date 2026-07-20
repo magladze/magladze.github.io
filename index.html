@@ -557,15 +557,30 @@
      only (aria-hidden) — nothing here is content a reader would otherwise miss. -->
 <div class="reveal" id="reveal" aria-hidden="true">
   <div class="reveal__scrim"></div>
-  <!-- Sources are deferred behind data-* and attached on idle (see the script below).
-       loading="lazy" does NOT defer this: the plate is position:fixed and therefore counts as
-       in-viewport, so the browser fetched it during first paint. Measured, not assumed. -->
-  <figure class="reveal__plate">
-    <picture>
-      <source data-srcset="images/reveal.webp" type="image/webp">
-      <img data-src="images/reveal.jpg" alt="" width="1120" height="696" decoding="async">
-    </picture>
-  </figure>
+  <div class="reveal__stage">
+    <!-- Sources are deferred behind data-* and attached on idle (see the script below).
+         loading="lazy" does NOT defer this: the plate is position:fixed and therefore counts as
+         in-viewport, so the browser fetched it during first paint. Measured, not assumed. -->
+    <figure class="reveal__plate">
+      <picture>
+        <source data-srcset="images/reveal.webp" type="image/webp">
+        <img data-src="images/reveal.jpg" alt="" width="1120" height="696" decoding="async">
+      </picture>
+    </figure>
+    <!-- The thought stream. The ticker runs from load and never resets, so each reveal catches
+         a different thought — you are glimpsing a mind mid-thought, not starting a playlist. -->
+    <!-- Two absolutely-positioned layers, crossfaded. A single layer whose text is replaced
+         reflows its own lines, which is a real (if tiny) layout shift; writing into the
+         invisible layer and swapping opacity is shift-free for ANY future quote length. -->
+    <div class="reveal__quote">
+      <div class="q__layer">
+        <blockquote class="q__text"></blockquote><p class="q__gloss"></p><p class="q__by"></p>
+      </div>
+      <div class="q__layer">
+        <blockquote class="q__text"></blockquote><p class="q__gloss"></p><p class="q__by"></p>
+      </div>
+    </div>
+  </div>
   <button class="reveal__close" type="button" aria-label="Close the portrait">
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -591,20 +606,87 @@
     if (!brand || !overlay) { return; }
     var root = document.documentElement, timer = null, pointer = 'mouse', loaded = false;
 
-    // Attach the plate's sources once the page is otherwise done, so it stays out of the
-    // critical path but is decoded well before any realistic hover. open() forces it if
-    // someone gets there first.
+    // ---- top-only gating -------------------------------------------------------------
+    // The reveal is armed only while the hero is on screen. Further down the page the brand
+    // is just navigation, and a portrait flying in over the work section would be noise.
+    var hero = document.querySelector('.hero'), armed = true;
+    if (hero && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        armed = entries[entries.length - 1].isIntersecting;
+        if (!armed && mode()) { close(); }     // scrolling away dismisses an open reveal
+      }, { threshold: 0 }).observe(hero);
+    }
+
+    // ---- the thought stream ----------------------------------------------------------
+    // One index, advanced by one timer that starts at load and is never reset by opening the
+    // reveal. That is the entire effect: each look catches a different thought.
+    var quotes = [], idx = 0, tick = null, shown = -1;
+    // live starts at 1 so the very first paint targets layer 0; both layers start out of layout.
+    var layers = overlay.querySelectorAll('.q__layer'), live = 1;
+
+    function write (el, q) {
+      el.querySelector('.q__text').textContent = q.text;
+      el.querySelector('.q__gloss').textContent = q.gloss ? 'In plain terms: ' + q.gloss : '';
+      el.querySelector('.q__by').textContent = q.author || '';
+    }
+    // Writes into the layer that is display:none, gives it a layout box, then lights it a
+    // frame later so the opacity transition has a starting value. The outgoing layer is only
+    // removed from layout after the fade, and only if it hasn't become live again meanwhile.
+    function paint () {
+      if (!quotes.length || idx === shown) { return; }   // already on screen: no needless crossfade
+      var q = quotes[idx % quotes.length];
+      shown = idx;
+      var next = 1 - live, prev = live;
+      write(layers[next], q);
+      layers[next].classList.add('is-on');
+      void layers[next].offsetWidth;                     // flush, or the fade starts at opacity 1
+      live = next;
+      requestAnimationFrame(function () {
+        layers[next].classList.add('is-lit');
+        layers[prev].classList.remove('is-lit');
+        setTimeout(function () {
+          if (live !== prev) { layers[prev].classList.remove('is-on'); }
+        }, 340);
+      });
+    }
+    function advance () {
+      idx = (idx + 1) % (quotes.length || 1);
+      if (mode()) { paint(); }                 // closed: index math only, no DOM work
+    }
+    function startTicker () { if (!tick && quotes.length) { tick = setInterval(advance, 7000); } }
+    function stopTicker () { clearInterval(tick); tick = null; }
+    document.addEventListener('visibilitychange', function () {
+      // Politeness, not correctness: a hidden tab shouldn't burn a timer. The index holds.
+      if (document.hidden) { stopTicker(); } else { startTicker(); }
+    });
+
+    // Attach the plate's sources and fetch the stream once the page is otherwise done, so
+    // neither is in the critical path. open() forces the image if someone gets there first.
     function load () {
       if (loaded) { return; }
       loaded = true;
       var s = overlay.querySelector('source'), i = overlay.querySelector('img');
       if (s) { s.srcset = s.dataset.srcset; }
       i.src = i.dataset.src;
+      fetch('data/quotes.json')
+        .then(function (r) { return r.ok ? r.json() : []; })
+        .then(function (list) {
+          if (!Array.isArray(list) || !list.length) { return; }
+          quotes = list; paint(); startTicker();
+        })
+        .catch(function () { /* no stream; the reveal still works without it */ });
     }
     if ('requestIdleCallback' in window) { requestIdleCallback(load, { timeout: 2500 }); }
     else { setTimeout(load, 1200); }
 
-    function open (mode) { load(); clearTimeout(timer); root.setAttribute('data-reveal', mode); }
+    function open (m) {
+      if (!armed) { return; }
+      load(); clearTimeout(timer);
+      // Paint on open, not only on tick: while closed, advance() does index math and skips the
+      // DOM, so without this the plate would show whichever quote was current at page load.
+      paint();
+      root.setAttribute('data-reveal', m);
+    }
     function close () { clearTimeout(timer); root.removeAttribute('data-reveal'); }
     function mode () { return root.getAttribute('data-reveal'); }
 

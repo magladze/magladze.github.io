@@ -441,12 +441,19 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
   backdrop-filter:blur(6px) saturate(.78); -webkit-backdrop-filter:blur(6px) saturate(.78);
   transition:opacity .46s cubic-bezier(.16,1,.3,1);
 }
+/* The stage lays out plate + quote. Flex rather than absolute positioning, so the quote is
+   placed relative to the plate's real box instead of a magic number that drifts per viewport. */
+.reveal__stage{
+  position:absolute; inset:0; display:flex; align-items:center;
+  gap:clamp(1.25rem, 3.5vw, 3.25rem);
+  padding-right:clamp(1.25rem, 5vw, 4rem);
+}
 .reveal__plate{
   --x-in:-96%; --x-out:-7%;
-  position:absolute; left:0; top:50%; margin:0;
-  width:min(58vw, 760px);
+  position:relative; flex:none; margin:0;
+  width:min(52vw, 700px);
   opacity:0; filter:blur(16px);
-  transform:translate3d(var(--x-in), -50%, 0);
+  transform:translate3d(var(--x-in), 0, 0);
   /* Feather EVERY edge, weighted to his face. A rectangle with four hard cuts reads as a
      banner dropped on the page; dissolving all four edges is what makes it read as a
      projection. One radial gradient, so no mask-composite support question. */
@@ -470,17 +477,96 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 }
 .reveal__close svg{ width:20px; height:20px; }
 
+/* ---- the thought stream ---- */
+.reveal__quote{
+  position:relative; flex:1 1 auto; min-width:0; max-width:34rem;
+  /* Space is RESERVED, not measured: a fixed height with top-aligned content means the first
+     line sits at the same y for every quote — including quotes added later that are longer
+     than any of today's. Sizing the box to the current content would be zero-CLS until the
+     next edit to quotes.json. Measured tallest today: 11.8rem desktop, 13.7rem mobile. */
+  height:14rem;
+  opacity:0; transform:translate3d(10px, 0, 0);
+  transition:opacity .42s cubic-bezier(.16,1,.3,1) .16s,
+             transform .56s cubic-bezier(.16,1,.3,1) .16s;
+}
+/* A soft local darkening, because the blurred page behind is not uniformly dark — the hero's
+   amber starburst sits right where this text lands. Guarantees legibility without a hard card. */
+/* Sized and weighted from measurement, not taste: against the brightest backdrop pixel (the
+   hero's amber starburst bleeding through the blur) the gloss and byline were falling to
+   3.2:1 and 2.7:1. This panel is what carries them back over AA. */
+/* A blurred solid slab rather than a radial gradient. The gradient's dense core covered the
+   quote but had already fallen off by the byline's row, which measured 3.6:1 (desktop) and
+   2.3:1 (mobile, over the CTA's cyan glow). A slab covers every row equally and its blur
+   keeps the edges soft. */
+.reveal__quote::before{
+  content:""; position:absolute; inset:-1.75rem -2.25rem; z-index:-1;
+  border-radius:1.75rem; background:rgba(7,10,15,.88); filter:blur(20px);
+}
+/* The off layer is display:none, not merely transparent or visibility:hidden. Both of those
+   still keep a layout box, and the shift API counts the TEXT reflowing inside it — reserving
+   the blockquote's height was not enough, because the line boxes themselves move. Only
+   display:none removes the layout entirely, which makes re-showing an appearance rather than
+   a shift. Measured across three ticker beats: 0.00163 -> 0.00000.
+   The fade is therefore sequenced in JS (display, then a frame, then opacity). */
+.q__layer{
+  position:absolute; inset:0;
+  display:none; flex-direction:column; justify-content:flex-start;
+  opacity:0; transition:opacity .3s ease;
+}
+.q__layer.is-on{ display:flex; }
+.q__layer.is-lit{ opacity:1; }
+/* Heights are RESERVED in line units, not left to the content. A block that re-appears at a
+   different height is a layout shift even when it was hidden in between — Chrome compares
+   against the last painted rect. Reserving 3 lines here (4 on mobile) is what actually takes
+   the ticker to 0.00000; the container height alone was not enough. `em` so it tracks the
+   fluid type scale, and overflow stays visible so a longer future quote spills rather than
+   shifts anything. */
+.q__text{
+  margin:0; font-size:var(--t-1); line-height:1.45; font-weight:500;
+  color:var(--text); text-wrap:balance;
+  height:calc(1.45em * 3);
+}
+.q__text::before{ content:"\201C"; color:var(--accent); margin-right:.1em; }
+.q__text::after { content:"\201D"; color:var(--accent); margin-left:.06em; }
+.q__gloss{
+  margin:.85rem 0 0; font-size:var(--t--1); line-height:1.55; color:var(--muted);
+  border-left:2px solid var(--accent); padding-left:.8rem;
+  height:calc(1.55em * 3);
+}
+/* visibility, not display: a quote with no gloss must still hold the space, or the byline
+   below it moves and we are back to a shift. */
+.q__gloss:empty{ visibility:hidden; }
+.q__by{
+  margin:1.1rem 0 0; font-size:var(--t--1); font-weight:600; letter-spacing:.04em;
+  text-transform:uppercase; color:#C6D3E4;   /* --dim and --muted both measured under AA here */
+}
+.q__by::before{ content:"— "; }
+.q__by:empty{ visibility:hidden; }   /* same reason as the gloss: hold the space */
+
 :root[data-reveal] .reveal__scrim{ opacity:1; }
 :root[data-reveal] .reveal__plate{
-  opacity:1; filter:blur(0); transform:translate3d(var(--x-out), -50%, 0);
+  opacity:1; filter:blur(0); transform:translate3d(var(--x-out), 0, 0);
 }
+:root[data-reveal] .reveal__quote{ opacity:1; transform:none; }
 /* Touch only: the overlay becomes interactive so tap-away dismisses. */
 :root[data-reveal="tap"] .reveal{ pointer-events:auto; }
 :root[data-reveal="tap"] .reveal__close{ display:grid; }
 
+@media (max-width:900px){
+  /* Phone/tablet: the quote goes BELOW the plate, and the plate centres instead of bleeding
+     off the left — a half-off-screen photo on a 390px viewport is just a cropped photo. */
+  .reveal__stage{
+    flex-direction:column; justify-content:center;
+    gap:clamp(1rem, 3vh, 1.75rem);
+    padding:max(4.5rem, 9vh) clamp(1rem, 5vw, 2rem) clamp(1rem, 4vh, 2rem);
+  }
+  .reveal__quote{ flex:none; max-width:34rem; height:16rem; width:100%; }
+  .q__text{ height:calc(1.45em * 4); }        /* narrower column wraps to more lines */
+  .reveal__quote::before{ inset:-1.25rem -1.5rem; }
+}
 @media (max-width:640px){
   .reveal__plate{
-    --x-in:-108%; --x-out:2%; width:min(96vw, 540px);
+    --x-in:-108%; --x-out:0%; width:min(96vw, 540px);
     /* Vertical radius deliberately BELOW 50% of the box so the top and bottom edges land late
        on the ray — at 66% they sat at .76 and still read as a hard cut on a phone. */
     -webkit-mask-image:radial-gradient(80% 56% at 44% 50%, #000 40%, rgba(0,0,0,.88) 64%, transparent 99%);
@@ -502,11 +588,14 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
   /* No slide, no focus-pull: the plate is already at its final position and simply fades.
      These survive the blanket `*` duration clamp below on specificity, not source order. */
   .reveal__plate{
-    transform:translate3d(var(--x-out), -50%, 0) !important;
+    transform:translate3d(var(--x-out), 0, 0) !important;
     filter:none !important;
     transition:opacity .18s linear !important;
   }
   .reveal__scrim{ transition:opacity .18s linear !important; }
+  /* The stream still advances; it just doesn't churn. No slide-in, no per-quote crossfade. */
+  .reveal__quote{ transform:none !important; transition:opacity .18s linear !important; }
+  .q__layer{ transition:none !important; }
   *,*::before,*::after{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
 }
 /* Below 900px: avatar stays, parallax is dropped (small viewports scroll fast enough

@@ -1,0 +1,45 @@
+[
+  {
+    "text": "The expensive model should see the fewest documents. Most of the work is knowing what never needed it.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail",
+    "gloss": "Route the easy cases cheaply. Save the heavy machinery for the ones that actually earn it."
+  },
+  {
+    "text": "A system that works in the demo and not on Tuesday morning was never a system.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Every number on a slide should survive someone asking where it came from.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Retrieval is not search. Search finds documents; retrieval finds the sentence that settles the question.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail",
+    "gloss": "Returning ten plausible pages is not an answer. Returning the line that decides it is."
+  },
+  {
+    "text": "Automation earns trust the way people do — by being boring for a long time.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "If the pipeline needs someone watching it, you built a job, not a pipeline.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "The hard part was never the model. It was the twelve upstream systems that disagree about what a customer is.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail",
+    "gloss": "Most AI projects are data-reconciliation projects wearing a better jacket."
+  },
+  {
+    "text": "Teaching a thing is how you find out whether you understood it.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  }
+]
