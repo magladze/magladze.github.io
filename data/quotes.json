@@ -1,45 +1,317 @@
 [
   {
-    "text": "The expensive model should see the fewest documents. Most of the work is knowing what never needed it.",
-    "author": "Mikhail Agladze",
-    "type": "invented-mikhail",
-    "gloss": "Route the easy cases cheaply. Save the heavy machinery for the ones that actually earn it."
+    "text": "We're making this analogy that AI is the new electricity. Electricity transformed industries: agriculture, transportation, communication, manufacturing.",
+    "author": "Andrew Ng",
+    "type": "real-researcher"
   },
   {
-    "text": "A system that works in the demo and not on Tuesday morning was never a system.",
+    "text": "Data-centric AI is the discipline of systematically engineering the data needed to build a successful AI system.",
+    "author": "Andrew Ng",
+    "type": "real-researcher",
+    "gloss": "Mikhail Agladze reads this as: stop worshipping the model. The leverage is in treating your data as an engineered artifact — labeled consistently, cleaned deliberately, versioned — not as a pile you scraped once and forgot."
+  },
+  {
+    "text": "Invariably, simple models and a lot of data trump more elaborate models based on less data.",
+    "author": "Alon Halevy, Peter Norvig, and Fernando Pereira",
+    "type": "real-researcher",
+    "gloss": "Mikhail Agladze reads this as: before you spend a month tuning a clever architecture, ask whether ten times the data with a dumb model would beat it. Usually it would. Feed the beast before you decorate it."
+  },
+  {
+    "text": "All models are wrong, but some are useful.",
+    "author": "George E. P. Box",
+    "type": "real-researcher",
+    "gloss": "Mikhail Agladze reads this as: don't defend your model as if it were the truth — it isn't, none of them are. Judge it only by whether it earns its keep on the decision in front of you."
+  },
+  {
+    "text": "Neural networks are not just another classifier, they represent the beginning of a fundamental shift in how we develop software. They are Software 2.0.",
+    "author": "Andrej Karpathy",
+    "type": "real-researcher"
+  },
+  {
+    "text": "The combination of some data and an aching desire for an answer does not ensure that a reasonable answer can be extracted from a given body of data.",
+    "author": "John W. Tukey",
+    "type": "real-researcher",
+    "gloss": "Mikhail Agladze reads this as: wanting an answer badly does not make the data able to give you one. If the signal isn't in there, no amount of hope, dashboards, or p-hacking puts it there."
+  },
+  {
+    "text": "All the impressive achievements of deep learning amount to just curve fitting.",
+    "author": "Judea Pearl",
+    "type": "real-researcher",
+    "gloss": "Mikhail Agladze reads this as: a model that has only seen correlations can predict, but it can't answer 'what happens if I intervene?' Don't mistake a great pattern-matcher for something that understands cause and effect."
+  },
+  {
+    "text": "The biggest lesson that can be read from 70 years of AI research is that general methods that leverage computation are ultimately the most effective, and by a large margin.",
+    "author": "Richard S. Sutton",
+    "type": "real-researcher"
+  },
+  {
+    "text": "Data Scientist (n.): Person who is better at statistics than any software engineer and better at software engineering than any statistician.",
+    "author": "Josh Wills",
+    "type": "real-researcher"
+  },
+  {
+    "text": "It is remarkably easy to incur massive ongoing maintenance costs at the system level when applying machine learning.",
+    "author": "D. Sculley et al.",
+    "type": "real-researcher",
+    "gloss": "Mikhail Agladze reads this as: the model is the cheap part. The glue code, the data pipelines, the silent feedback loops and undeclared dependencies are where an ML system quietly rots — and you pay interest on all of it forever."
+  },
+  {
+    "text": "More data beats clever algorithms, but better data beats more data.",
+    "author": "Monica Rogati",
+    "type": "real-researcher"
+  },
+  {
+    "text": "The purpose of computing is insight, not numbers.",
+    "author": "Richard W. Hamming",
+    "type": "real-researcher",
+    "gloss": "Mikhail Agladze reads this as: a pipeline that spits out a metric nobody understands has failed, even if it ran green. The deliverable is a decision someone can act on, not a table of figures."
+  },
+  {
+    "text": "It's easy to make something cool with LLMs, but very hard to make something production-ready with them.",
+    "author": "Chip Huyen",
+    "type": "real-researcher"
+  },
+  {
+    "text": "People should stop training radiologists now. It's just completely obvious that within five years deep learning is going to do better than radiologists.",
+    "author": "Geoffrey Hinton",
+    "type": "real-researcher",
+    "gloss": "Mikhail Agladze reads this as: a cautionary one, kept precisely because it was wrong. Even the field's founders overshoot on a confident demo. 'Obvious within five years' is where humility should kick in, not where you fire the humans."
+  },
+  {
+    "text": "If intelligence is a cake, the bulk of the cake is unsupervised learning, the icing on the cake is supervised learning, and the cherry on the cake is reinforcement learning.",
+    "author": "Yann LeCun",
+    "type": "real-researcher"
+  },
+  {
+    "text": "This [statistical] community has been committed to the almost exclusive use of data models. This commitment has led to irrelevant theory, questionable conclusions, and has kept statisticians from working on a large range of interesting current problems.",
+    "author": "Leo Breiman",
+    "type": "real-researcher",
+    "gloss": "Mikhail Agladze reads this as: don't fall in love with a tidy theory of how the data 'should' have been generated. If a black-box algorithm predicts reality better, that's the more honest tool — measure on held-out reality, not on the elegance of your assumptions."
+  },
+  {
+    "text": "All men by nature desire to know.",
+    "author": "Aristotle",
+    "type": "real-philosopher",
+    "gloss": "Wanting to understand isn't a quirk of a few nerds — it's wired into being human. The drive to know is the baseline, not the exception."
+  },
+  {
+    "text": "Nature loves to hide.",
+    "author": "Heraclitus",
+    "type": "real-philosopher",
+    "gloss": "The truth almost never sits on the surface. If it were obvious, everyone would already have it. The real thing is always one layer down — so dig."
+  },
+  {
+    "text": "Look beneath the surface; let not the several quality of a thing nor its worth escape thee.",
+    "author": "Marcus Aurelius",
+    "type": "real-philosopher",
+    "gloss": "Never take anything at face value. Before you judge it, figure out what it actually is and what it's actually worth."
+  },
+  {
+    "text": "Real knowledge is to know the extent of one's ignorance.",
+    "author": "Confucius",
+    "type": "real-philosopher",
+    "gloss": "The real skill is knowing exactly where your knowledge stops. Map the edges of what you don't know — that's what separates the sharp from the confidently wrong."
+  },
+  {
+    "text": "It is not enough to have a good mind; the main thing is to use it well.",
+    "author": "René Descartes",
+    "type": "real-philosopher",
+    "gloss": "Being smart is cheap. Using your head well — with discipline, on the right things — is the whole game."
+  },
+  {
+    "text": "I have laboured carefully, not to mock, lament, or execrate human actions, but to understand them.",
+    "author": "Baruch Spinoza",
+    "type": "real-philosopher",
+    "gloss": "Don't mock, mourn, or curse what people do — understand it. Understanding beats reacting every single time."
+  },
+  {
+    "text": "I have made this longer than usual because I have not had the time to make it shorter.",
+    "author": "Blaise Pascal",
+    "type": "real-philosopher",
+    "gloss": "Making something short is harder than making it long. Brevity is the labor, not the shortcut."
+  },
+  {
+    "text": "It is my ambition to say in ten sentences what everyone else says in a whole book — what everyone else does not say in a whole book.",
+    "author": "Friedrich Nietzsche",
+    "type": "real-philosopher",
+    "gloss": "Say in ten sentences what others need a whole book for. Compression is mastery — and the hard part is saying what they never manage to say at all."
+  },
+  {
+    "text": "The limits of my language mean the limits of my world.",
+    "author": "Ludwig Wittgenstein",
+    "type": "real-philosopher",
+    "gloss": "You can only think as far as your words reach. Sharpen your vocabulary and you literally expand what you're able to see and build."
+  },
+  {
+    "text": "Seek simplicity and distrust it.",
+    "author": "Alfred North Whitehead",
+    "type": "real-philosopher",
+    "gloss": "Chase the simplest explanation — then doubt it. The clean story you want is usually simpler than the messy system actually is."
+  },
+  {
+    "text": "Attention is the rarest and purest form of generosity.",
+    "author": "Simone Weil",
+    "type": "real-philosopher",
+    "gloss": "Genuinely paying attention to something — fully, without skimming — is the most generous thing you can give it. Almost nobody actually does it."
+  },
+  {
+    "text": "A demo answers one question you chose. A system answers the ones you didn't.",
     "author": "Mikhail Agladze",
     "type": "invented-mikhail"
   },
   {
-    "text": "Every number on a slide should survive someone asking where it came from.",
+    "text": "Retrieval is not search with better manners. If you can't say why a chunk was returned, your users can't trust why the model answered.",
     "author": "Mikhail Agladze",
     "type": "invented-mikhail"
   },
   {
-    "text": "Retrieval is not search. Search finds documents; retrieval finds the sentence that settles the question.",
-    "author": "Mikhail Agladze",
-    "type": "invented-mikhail",
-    "gloss": "Returning ten plausible pages is not an answer. Returning the line that decides it is."
-  },
-  {
-    "text": "Automation earns trust the way people do — by being boring for a long time.",
+    "text": "Most RAG doesn't fail at the model. It fails at the seam between the document and the chunk, where nobody was watching.",
     "author": "Mikhail Agladze",
     "type": "invented-mikhail"
   },
   {
-    "text": "If the pipeline needs someone watching it, you built a job, not a pipeline.",
+    "text": "An agent without an evaluation is a rumor with API access.",
     "author": "Mikhail Agladze",
     "type": "invented-mikhail"
   },
   {
-    "text": "The hard part was never the model. It was the twelve upstream systems that disagree about what a customer is.",
-    "author": "Mikhail Agladze",
-    "type": "invented-mikhail",
-    "gloss": "Most AI projects are data-reconciliation projects wearing a better jacket."
-  },
-  {
-    "text": "Teaching a thing is how you find out whether you understood it.",
+    "text": "You do not have a pipeline. You have a sequence of hopes that happened to run in order today.",
     "author": "Mikhail Agladze",
     "type": "invented-mikhail"
+  },
+  {
+    "text": "Every autonomous step multiplies your error rate. Give an agent ten steps of freedom and you have bought ten chances to be confidently wrong.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Clean data is not a state you reach. It is a discipline you keep, or a bill you defer.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "If you cannot reproduce the answer, you did not get an answer. You got a coincidence.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Latency is a feature until it's a lawsuit. Design for the load you fear, not the load you demoed.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Evaluation is not the exam at the end. It is the compass you carry the whole way.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Prompt engineering is scaffolding. If it's still holding the building up in month six, you built the wrong building.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Architecture is just the set of mistakes you decided to make on purpose, written down before they cost you.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Context windows got bigger so teams could stop thinking about what to put in them. That is not progress. That is spending.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Hallucination is not the model lying. It is the system asking a question it never gave the model the means to answer.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Restraint is a technical decision. The feature you don't ship never wakes you at 3 a.m.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "A benchmark you beat but can't explain is a trophy, not a result.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Scale doesn't reveal new problems. It removes the slack that was hiding the old ones.",
+    "author": "Mikhail Agladze",
+    "type": "invented-mikhail"
+  },
+  {
+    "text": "Painpoint: RAG demos dazzle but production retrieval returns confident nonsense the moment queries drift off the demo script. We solve it by treating retrieval as an engineering discipline, not a vibe: chunking tuned to the document structure, hybrid semantic-plus-keyword ranking, and a retrieval eval set that fails the build when recall on real user queries drops.",
+    "author": "Mikhail Agladze",
+    "type": "painpoint-solution"
+  },
+  {
+    "text": "Painpoint: your agent works in the notebook, then loops, double-calls tools, and burns tokens the instant a real user goes off-path. We give the runtime a spine: typed tool contracts, explicit state, step budgets, and deterministic fallbacks, so the agent fails closed and legibly instead of wandering.",
+    "author": "Mikhail Agladze",
+    "type": "painpoint-solution"
+  },
+  {
+    "text": "Painpoint: nobody can tell whether the last prompt change made the system better or worse, so every release is a gut call. We stand up an evaluation harness first, tied to labeled cases that mirror your domain, so quality becomes a number you can regress against before anything ships.",
+    "author": "Mikhail Agladze",
+    "type": "painpoint-solution"
+  },
+  {
+    "text": "Painpoint: guardrails get bolted on after an embarrassing output makes it to a customer. We build the guardrail and benchmark layer up front and wire it to A/B, so unsafe or off-policy responses are caught, measured, and compared between variants instead of discovered in a support ticket.",
+    "author": "Mikhail Agladze",
+    "type": "painpoint-solution"
+  },
+  {
+    "text": "Painpoint: the warehouse grew by accretion, so every new question means a three-week archaeology dig through undocumented tables. We design the warehouse and lakehouse with clear layers, conformed dimensions, and documented grain, so analysts self-serve instead of filing tickets to the data team.",
+    "author": "Mikhail Agladze",
+    "type": "painpoint-solution"
+  },
+  {
+    "text": "Painpoint: the Spark jobs run, but they shuffle the whole dataset, cost a fortune, and fall over when volume doubles. We write PySpark ETL that respects partitioning, pushes filters down, and avoids the skew traps, so the pipeline scales with the data instead of against your cloud bill.",
+    "author": "Mikhail Agladze",
+    "type": "painpoint-solution"
+  },
+  {
+    "text": "Painpoint: teams reach for NoSQL because it is trendy, then reinvent joins and transactions badly in application code. We model to the access pattern, not the fashion: relational where you need integrity and joins, document or key-value where you genuinely need scale and flexible shape, and we say which and why.",
+    "author": "Mikhail Agladze",
+    "type": "painpoint-solution"
+  },
+  {
+    "text": "Painpoint: the same customer exists five times across five systems with five spellings, and every report quietly disagrees with itself. We put real master data management in place with survivorship rules and stable identifiers, so there is one version of the customer that every downstream system trusts.",
+    "author": "Mikhail Agladze",
+    "type": "painpoint-solution"
+  },
+  {
+    "text": "Painpoint: your infrastructure lives in someone's memory and a pile of console clicks, so nobody can reproduce it and everybody is afraid to touch it. We put it in Terraform with modules and state discipline, so environments are reproducible, reviewable, and no longer one resignation away from unrecoverable.",
+    "author": "Mikhail Agladze",
+    "type": "painpoint-solution"
+  },
+  {
+    "text": "Painpoint: models and prompts get updated by hand in production, and no one can say which version is actually live. We give models and prompts the same CI/CD rigor as code: versioned, tested against eval gates, and promoted through environments, so a rollback is one command, not an incident.",
+    "author": "Mikhail Agladze",
+    "type": "painpoint-solution"
+  },
+  {
+    "text": "Painpoint: when the system misbehaves at 2am, you are grepping raw logs with no idea which step failed or what it cost. We instrument the pipeline with tracing, structured logs, and clear signals, and pair it with incident playbooks, so on-call follows a runbook instead of improvising in the dark.",
+    "author": "Mikhail Agladze",
+    "type": "painpoint-solution"
+  },
+  {
+    "text": "Painpoint: everyone has admin, secrets sit in a config file, and PII flows wherever it happens to land. We enforce least-privilege RBAC, put secrets in a managed store, and classify and mask PII at the boundary, so access is scoped and sensitive data is handled deliberately, not by accident.",
+    "author": "Mikhail Agladze",
+    "type": "painpoint-solution"
+  },
+  {
+    "text": "Painpoint: the chatbot cites documents that say the opposite of its answer, and legal has noticed. We ground generation in retrieval you can inspect, attach source attribution to every claim, and evaluate faithfulness, so answers stay tethered to what the corpus actually says.",
+    "author": "Mikhail Agladze",
+    "type": "painpoint-solution"
+  },
+  {
+    "text": "Painpoint: analytics reads from the production database, so every heavy query threatens the app and every schema change breaks a dashboard. We separate operational and analytical planes with proper ingestion into the warehouse, so reporting scales independently and never puts the transactional system at risk.",
+    "author": "Mikhail Agladze",
+    "type": "painpoint-solution"
+  },
+  {
+    "text": "Painpoint: pipelines silently pass data that is late, malformed, or half-empty, and the breakage only surfaces in an executive dashboard weeks later. We put data quality checks and contracts at ingestion, so bad data is quarantined and flagged at the door rather than propagating downstream.",
+    "author": "Mikhail Agladze",
+    "type": "painpoint-solution"
   }
 ]
