@@ -300,6 +300,13 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
   padding:var(--sp-2); border:1px solid var(--line); border-radius:var(--r);
   background:rgba(16,24,37,.82); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
 }
+/* Portrait slot — styling is pre-written so a real headshot is a drop-in, not a redesign.
+   See the commented figure in index.html's About section. */
+.portrait{
+  margin:0; border:1px solid var(--line); border-radius:var(--r); overflow:hidden;
+  background:#0A0F17; aspect-ratio:1/1;
+}
+.portrait img{ width:100%; height:100%; object-fit:cover; }
 .panel__h{ font-size:var(--t--1); letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:var(--sp); }
 .plain{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.75rem; }
 .plain li{ font-size:var(--t--1); color:var(--muted); line-height:1.55; }
