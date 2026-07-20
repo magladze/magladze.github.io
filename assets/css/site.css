@@ -541,17 +541,27 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 .q__layer[data-type="painpoint-solution"] .q__text::after{ content:none; }
 .q__text::before{ content:"\201C"; color:var(--accent); margin-right:.1em; }
 .q__text::after { content:"\201D"; color:var(--accent); margin-left:.06em; }
-.q__gloss{
-  margin:.85rem 0 0; font-size:var(--t--1); line-height:1.55; color:var(--muted);
-  border-left:2px solid var(--accent); padding-left:.8rem;
-}
-.q__gloss:empty{ display:none; }
+/* The byline belongs to the QUOTE and sits tight under it, as one unit. The gloss is
+   Mikhail's reading of someone else's words and is pushed clearly below and inset behind its
+   own label — nobody should be able to read it as something Clausewitz or Breiman said. */
 .q__by{
-  margin:1.1rem 0 0; font-size:var(--t--1); font-weight:600; letter-spacing:.04em;
+  margin:.7rem 0 0; font-size:var(--t--1); font-weight:600; letter-spacing:.04em;
   text-transform:uppercase; color:#C6D3E4;   /* --dim and --muted both measured under AA here */
 }
 .q__by::before{ content:"— "; }
-.q__by:empty{ visibility:hidden; }   /* same reason as the gloss: hold the space */
+.q__by:empty{ visibility:hidden; }
+
+.q__gloss{
+  margin:1.6rem 0 0; border-left:2px solid var(--accent); padding-left:.85rem;
+}
+.q__gloss[hidden]{ display:none; }
+.q__gloss-eyebrow{
+  margin:0 0 .3rem; font-size:.7rem; font-weight:700;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--accent);
+}
+.q__gloss-text{
+  margin:0; font-size:var(--t--1); line-height:1.55; color:var(--muted);
+}
 
 :root[data-reveal] .reveal__scrim{ opacity:1; }
 :root[data-reveal] .reveal__plate{

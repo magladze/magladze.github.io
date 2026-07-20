@@ -8,19 +8,19 @@
     "text": "Data-centric AI is the discipline of systematically engineering the data needed to build a successful AI system.",
     "author": "Andrew Ng",
     "type": "real-researcher",
-    "gloss": "Mikhail Agladze reads this as: stop worshipping the model. The leverage is in treating your data as an engineered artifact — labeled consistently, cleaned deliberately, versioned — not as a pile you scraped once and forgot."
+    "gloss": "stop worshipping the model. The leverage is in treating your data as an engineered artifact — labeled consistently, cleaned deliberately, versioned — not as a pile you scraped once and forgot."
   },
   {
     "text": "Invariably, simple models and a lot of data trump more elaborate models based on less data.",
     "author": "Alon Halevy, Peter Norvig, and Fernando Pereira",
     "type": "real-researcher",
-    "gloss": "Mikhail Agladze reads this as: before you spend a month tuning a clever architecture, ask whether ten times the data with a dumb model would beat it. Usually it would. Feed the beast before you decorate it."
+    "gloss": "before you spend a month tuning a clever architecture, ask whether ten times the data with a dumb model would beat it. Usually it would. Feed the beast before you decorate it."
   },
   {
     "text": "All models are wrong, but some are useful.",
     "author": "George E. P. Box",
     "type": "real-researcher",
-    "gloss": "Mikhail Agladze reads this as: don't defend your model as if it were the truth — it isn't, none of them are. Judge it only by whether it earns its keep on the decision in front of you."
+    "gloss": "don't defend your model as if it were the truth — it isn't, none of them are. Judge it only by whether it earns its keep on the decision in front of you."
   },
   {
     "text": "Neural networks are not just another classifier, they represent the beginning of a fundamental shift in how we develop software. They are Software 2.0.",
@@ -31,13 +31,13 @@
     "text": "The combination of some data and an aching desire for an answer does not ensure that a reasonable answer can be extracted from a given body of data.",
     "author": "John W. Tukey",
     "type": "real-researcher",
-    "gloss": "Mikhail Agladze reads this as: wanting an answer badly does not make the data able to give you one. If the signal isn't in there, no amount of hope, dashboards, or p-hacking puts it there."
+    "gloss": "wanting an answer badly does not make the data able to give you one. If the signal isn't in there, no amount of hope, dashboards, or p-hacking puts it there."
   },
   {
     "text": "All the impressive achievements of deep learning amount to just curve fitting.",
     "author": "Judea Pearl",
     "type": "real-researcher",
-    "gloss": "Mikhail Agladze reads this as: a model that has only seen correlations can predict, but it can't answer 'what happens if I intervene?' Don't mistake a great pattern-matcher for something that understands cause and effect."
+    "gloss": "a model that has only seen correlations can predict, but it can't answer 'what happens if I intervene?' Don't mistake a great pattern-matcher for something that understands cause and effect."
   },
   {
     "text": "The biggest lesson that can be read from 70 years of AI research is that general methods that leverage computation are ultimately the most effective, and by a large margin.",
@@ -53,7 +53,7 @@
     "text": "It is remarkably easy to incur massive ongoing maintenance costs at the system level when applying machine learning.",
     "author": "D. Sculley et al.",
     "type": "real-researcher",
-    "gloss": "Mikhail Agladze reads this as: the model is the cheap part. The glue code, the data pipelines, the silent feedback loops and undeclared dependencies are where an ML system quietly rots — and you pay interest on all of it forever."
+    "gloss": "the model is the cheap part. The glue code, the data pipelines, the silent feedback loops and undeclared dependencies are where an ML system quietly rots — and you pay interest on all of it forever."
   },
   {
     "text": "More data beats clever algorithms, but better data beats more data.",
@@ -64,7 +64,7 @@
     "text": "The purpose of computing is insight, not numbers.",
     "author": "Richard W. Hamming",
     "type": "real-researcher",
-    "gloss": "Mikhail Agladze reads this as: a pipeline that spits out a metric nobody understands has failed, even if it ran green. The deliverable is a decision someone can act on, not a table of figures."
+    "gloss": "a pipeline that spits out a metric nobody understands has failed, even if it ran green. The deliverable is a decision someone can act on, not a table of figures."
   },
   {
     "text": "It's easy to make something cool with LLMs, but very hard to make something production-ready with them.",
@@ -75,7 +75,7 @@
     "text": "People should stop training radiologists now. It's just completely obvious that within five years deep learning is going to do better than radiologists.",
     "author": "Geoffrey Hinton",
     "type": "real-researcher",
-    "gloss": "Mikhail Agladze reads this as: a cautionary one, kept precisely because it was wrong. Even the field's founders overshoot on a confident demo. 'Obvious within five years' is where humility should kick in, not where you fire the humans."
+    "gloss": "a cautionary one, kept precisely because it was wrong. Even the field's founders overshoot on a confident demo. 'Obvious within five years' is where humility should kick in, not where you fire the humans."
   },
   {
     "text": "If intelligence is a cake, the bulk of the cake is unsupervised learning, the icing on the cake is supervised learning, and the cherry on the cake is reinforcement learning.",
@@ -86,7 +86,7 @@
     "text": "This [statistical] community has been committed to the almost exclusive use of data models. This commitment has led to irrelevant theory, questionable conclusions, and has kept statisticians from working on a large range of interesting current problems.",
     "author": "Leo Breiman",
     "type": "real-researcher",
-    "gloss": "Mikhail Agladze reads this as: don't fall in love with a tidy theory of how the data 'should' have been generated. If a black-box algorithm predicts reality better, that's the more honest tool — measure on held-out reality, not on the elegance of your assumptions."
+    "gloss": "don't fall in love with a tidy theory of how the data 'should' have been generated. If a black-box algorithm predicts reality better, that's the more honest tool — measure on held-out reality, not on the elegance of your assumptions."
   },
   {
     "text": "All men by nature desire to know.",
@@ -333,7 +333,7 @@
     "text": "Perfection is finally attained not when there is no longer anything to add, but when there is no longer anything to take away.",
     "author": "Antoine de Saint-Exupéry",
     "type": "real-philosopher",
-    "gloss": "Mikhail: You are not done when there's nothing left to bolt on — you're done when nothing more can be removed without breaking it. The production system is the one that's been stripped, not the one that's been decorated."
+    "gloss": "You are not done when there's nothing left to bolt on — you're done when nothing more can be removed without breaking it. The production system is the one that's been stripped, not the one that's been decorated."
   },
   {
     "text": "Extraordinary claims require extraordinary evidence.",
@@ -344,31 +344,31 @@
     "text": "Civilization advances by extending the number of important operations which we can perform without thinking about them.",
     "author": "Alfred North Whitehead",
     "type": "real-philosopher",
-    "gloss": "Mikhail: Progress is measured by how much you no longer have to think about. Every operation you can trust blind — the deploy, the failover, the rollback — is one you've earned the right to stop watching. That's what infrastructure is for."
+    "gloss": "Progress is measured by how much you no longer have to think about. Every operation you can trust blind — the deploy, the failover, the rollback — is one you've earned the right to stop watching. That's what infrastructure is for."
   },
   {
     "text": "We know more than we can tell.",
     "author": "Michael Polanyi",
     "type": "real-philosopher",
-    "gloss": "Mikhail: The judgment that keeps a system alive under load rarely fits in a runbook. Real expertise is the part that never made it into the docs — and it's the part you're actually paying for."
+    "gloss": "The judgment that keeps a system alive under load rarely fits in a runbook. Real expertise is the part that never made it into the docs — and it's the part you're actually paying for."
   },
   {
     "text": "A theory which is not refutable by any conceivable event is non-scientific. Irrefutability is not a virtue of a theory (as people often think) but a vice.",
     "author": "Karl Popper",
     "type": "real-philosopher",
-    "gloss": "Mikhail: If a claim can't fail a test, it isn't a result — it's decoration. A model you can't break is a model you can't trust. Demand the experiment that could prove you wrong."
+    "gloss": "If a claim can't fail a test, it isn't a result — it's decoration. A model you can't break is a model you can't trust. Demand the experiment that could prove you wrong."
   },
   {
     "text": "What information consumes is rather obvious: it consumes the attention of its recipients. Hence a wealth of information creates a poverty of attention.",
     "author": "Herbert A. Simon",
     "type": "real-philosopher",
-    "gloss": "Mikhail: More dashboards, more metrics, more logs — none of it is free. Every signal you add spends the one budget that doesn't scale: attention. Restraint in what you surface is itself an engineering decision."
+    "gloss": "More dashboards, more metrics, more logs — none of it is free. Every signal you add spends the one budget that doesn't scale: attention. Restraint in what you surface is itself an engineering decision."
   },
   {
     "text": "Everything in war is very simple, but the simplest thing is difficult.",
     "author": "Carl von Clausewitz",
     "type": "real-philosopher",
-    "gloss": "Mikhail: On the whiteboard every plan works. Friction — the missing credential, the flaky link, the 2am page — is the whole difference between war on paper and war. That gap is where production systems are actually built."
+    "gloss": "On the whiteboard every plan works. Friction — the missing credential, the flaky link, the 2am page — is the whole difference between war on paper and war. That gap is where production systems are actually built."
   },
   {
     "text": "The hardest single part of building a software system is deciding precisely what to build.",
@@ -389,7 +389,7 @@
     "text": "The victorious strategist only seeks battle after the victory has been won, whereas he who is destined to defeat first fights and afterwards looks for victory.",
     "author": "Sun Tzu",
     "type": "real-philosopher",
-    "gloss": "Mikhail: The outcome is decided before the fight — in the preparation, the architecture, the reserve you built in advance. If you're improvising a win under load, you already lost the design phase."
+    "gloss": "The outcome is decided before the fight — in the preparation, the architecture, the reserve you built in advance. If you're improvising a win under load, you already lost the design phase."
   },
   {
     "text": "Retrieval doesn't fail loudly. It hands you something plausible, and plausibility is the most expensive lie in the stack.",

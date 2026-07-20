@@ -583,10 +583,20 @@
          invisible layer and swapping opacity is shift-free for ANY future quote length. -->
     <div class="reveal__quote">
       <div class="q__layer">
-        <blockquote class="q__text"></blockquote><p class="q__gloss"></p><p class="q__by"></p>
+        <blockquote class="q__text"></blockquote>
+        <p class="q__by"></p>
+        <div class="q__gloss" hidden>
+          <p class="q__gloss-eyebrow">In plain terms</p>
+          <p class="q__gloss-text"></p>
+        </div>
       </div>
       <div class="q__layer">
-        <blockquote class="q__text"></blockquote><p class="q__gloss"></p><p class="q__by"></p>
+        <blockquote class="q__text"></blockquote>
+        <p class="q__by"></p>
+        <div class="q__gloss" hidden>
+          <p class="q__gloss-eyebrow">In plain terms</p>
+          <p class="q__gloss-text"></p>
+        </div>
       </div>
     </div>
   </div>
@@ -634,10 +644,10 @@
     var FADE_IN = 1200,          // ms, ease-out — resolves into focus
         FADE_OUT = 800,          // ms, ease-in  — releases quicker
         GAP = 500,               // ms fully hidden between quotes
-        DWELL_BASE = 4000,
-        DWELL_PER_WORD = 300,
-        DWELL_MIN = 5000,
-        DWELL_MAX = 14000;
+        DWELL_BASE = 4500,
+        DWELL_PER_WORD = 340,
+        DWELL_MIN = 6000,
+        DWELL_MAX = 18000;
 
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
     function fadeIn ()  { return reduce.matches ? 0 : FADE_IN; }
@@ -649,21 +659,25 @@
     var quotes = [], idx = 0, chain = null, phase = 'gap', slot = 0, lit = false;
     var layers = overlay.querySelectorAll('.q__layer');
 
-    function words (s) { return s.trim().split(/\s+/).length; }
+    function words (s) { return s ? s.trim().split(/\s+/).length : 0; }
+    // Dwell follows the whole READING LOAD, not just the quote. A 12-word Clausewitz line with a
+    // 37-word gloss is 49 words to read; scaling off the quote alone gave it ~7s and you were
+    // chasing it. Same line now holds for the full 18s ceiling.
     function dwellFor (q) {
-      return Math.min(DWELL_MAX, Math.max(DWELL_MIN, DWELL_BASE + DWELL_PER_WORD * words(q.text)));
+      var load = words(q.text) + words(q.gloss);
+      return Math.min(DWELL_MAX, Math.max(DWELL_MIN, DWELL_BASE + DWELL_PER_WORD * load));
     }
     function write (el, q) {
       var n = words(q.text);
       el.setAttribute('data-len', n <= 10 ? 's' : (n >= 25 ? 'l' : 'm'));
       el.setAttribute('data-type', q.type || '');
       el.querySelector('.q__text').textContent = q.text;
-      // Some glosses already carry their own lead-in ("Mikhail Agladze reads this as: …").
-      // Prefixing those with "In plain terms:" would stack two introductions on one sentence.
-      var g = q.gloss || '';
-      el.querySelector('.q__gloss').textContent =
-        g ? (/^\s*Mikhail Agladze reads this as:/.test(g) ? g : 'In plain terms: ' + g) : '';
       el.querySelector('.q__by').textContent = q.author || '';
+      // The gloss data is bare, so the single "In plain terms" label lives in the markup. No
+      // prefixing here — that is what produced "In plain terms: Mikhail: …".
+      var gloss = el.querySelector('.q__gloss');
+      gloss.querySelector('.q__gloss-text').textContent = q.gloss || '';
+      gloss.hidden = !q.gloss;
     }
     // Writes into a display:none layer, gives it a box, then lights it a frame later so the
     // fade has a starting value. display:none is what keeps this shift-free at any length.
@@ -722,7 +736,13 @@
         var cite = document.createElement('cite');
         cite.textContent = q.author || '';
         li.appendChild(bq); li.appendChild(cite);
-        if (q.gloss) { var g = document.createElement('p'); g.textContent = q.gloss; li.appendChild(g); }
+        // Labelled here too: without it a screen-reader user hears the gloss straight after the
+        // attribution and could take Mikhail's reading for the author's own words.
+        if (q.gloss) {
+          var g = document.createElement('p');
+          g.textContent = 'In plain terms: ' + q.gloss;
+          li.appendChild(g);
+        }
         frag.appendChild(li);
       });
       ul.appendChild(frag);
