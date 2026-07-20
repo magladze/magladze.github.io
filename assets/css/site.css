@@ -765,3 +765,32 @@ html.modal-open{ overflow:hidden; }
   body{ background:#fff; color:#000; }
   .sec,.contact,.hero{ padding:1rem 0; min-height:0; }
 }
+
+/* ---------- capability bullets: the affordance ------------------------------------
+   The bullets are the doors to the best content on the site, and until now nothing said
+   so until you hovered — which on touch is never. A persistent hairline under each one
+   reads as "interactive" without hovering, and brightens when it is. Cheap, quiet, and
+   it survives having no pointer at all. */
+.cap__b{
+  text-decoration:underline;
+  text-decoration-color:rgba(34,211,238,.34);
+  text-decoration-thickness:1px;
+  text-underline-offset:.28em;
+  transition:color .2s ease, text-shadow .2s ease, text-decoration-color .2s ease;
+}
+.cap__b:hover,
+.cap__b:focus-visible{ text-decoration-color:var(--accent); }
+
+.sec__hint{
+  display:flex; align-items:center; gap:.55rem;
+  margin:var(--sp) 0 0; max-width:44rem;
+  font-size:var(--t--1); color:var(--dim);
+}
+.sec__hint-i{
+  flex:none; width:15px; height:15px; border-radius:50%;
+  border:1px solid var(--accent); position:relative; opacity:.85;
+}
+.sec__hint-i::after{
+  content:""; position:absolute; left:50%; top:50%; width:4px; height:4px;
+  margin:-2px 0 0 -2px; border-radius:50%; background:var(--accent);
+}

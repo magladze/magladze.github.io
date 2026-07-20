@@ -151,6 +151,8 @@
         <p class="sec__sub">Most AI work fails at the seams — between the model, the data
           underneath it, and the operational reality it has to survive. I work across all three,
           which is why the systems stay up after the engagement ends.</p>
+        <p class="sec__hint"><span class="sec__hint-i" aria-hidden="true"></span>Open any
+          capability below for how I actually approach it — the practice, and where it gets hard.</p>
       </header>
 
       <div class="cards">
@@ -676,6 +678,26 @@
      established practice is credited to the field, and no client, metric or testimonial is
      invented anywhere in them. Inline rather than fetched so the substance is in the
      document for search engines and for anyone without JS. -->
+<!-- Capability modals. Draft copy in Mikhail's voice, written from the research briefs;
+     established practice is credited to the field, and no client, metric or testimonial is
+     invented anywhere in them. Inline rather than fetched so the substance is in the
+     document for search engines and for anyone without JS. -->
+<!-- Capability modals. Draft copy in Mikhail's voice, written from the research briefs;
+     established practice is credited to the field, and no client, metric or testimonial is
+     invented anywhere in them. Inline rather than fetched so the substance is in the
+     document for search engines and for anyone without JS. -->
+<!-- Capability modals. Draft copy in Mikhail's voice, written from the research briefs;
+     established practice is credited to the field, and no client, metric or testimonial is
+     invented anywhere in them. Inline rather than fetched so the substance is in the
+     document for search engines and for anyone without JS. -->
+<!-- Capability modals. Draft copy in Mikhail's voice, written from the research briefs;
+     established practice is credited to the field, and no client, metric or testimonial is
+     invented anywhere in them. Inline rather than fetched so the substance is in the
+     document for search engines and for anyone without JS. -->
+<!-- Capability modals. Draft copy in Mikhail's voice, written from the research briefs;
+     established practice is credited to the field, and no client, metric or testimonial is
+     invented anywhere in them. Inline rather than fetched so the substance is in the
+     document for search engines and for anyone without JS. -->
 <dialog class="modal" id="m-rag" aria-labelledby="m-rag-h">
   <div class="modal__in">
     <button type="button" class="modal__x" aria-label="Close">
@@ -740,11 +762,11 @@
     <p class="modal__kicker">AI architecture</p>
     <h3 class="modal__h" id="m-guardrails-h">Guardrails, offline benchmarks, online A/B</h3>
     <div class="modal__body">
-        <p>Three activities that only work as one loop: guardrails contain the downside, offline benchmarks stop a regression shipping, online experiments prove the change earned its place. Skip any one and you are shipping blind, shipping unsafe, or optimizing a proxy that never moves the business.</p>
-        <p>The palette is the field's — PII stripping at ingress, injection and jailbreak detection inline, dialog-policy control, output classification, schema validation. Defense in depth, each layer independently testable.</p>
-        <p>The judgment is in what you spend and where. Every guardrail costs latency, so each gets a budget and an explicit stance: fail open, or fail closed? A safety classifier on a customer-facing surface fails closed. A latency-sensitive enrichment check probably fails open. Getting that backwards is its own outage.</p>
-        <p>We reach for the cheapest control that does the job — a schema validator beats a model call — and reserve semantic judging for checks that genuinely need it. Online, stochastic outputs punish naive testing: peeking at an A/B without sequential methods manufactures winners, and a change that lifts the headline while raising refusal rate or cost per request hasn't won anything. Shadow, then canary with automated rollback, then ramp.</p>
-        <p class="modal__scope"><b>What we'd ask about yours:</b> what the worst plausible bad output is on this surface, who bears it — customer, regulator, brand — and what the business metric actually is.</p>
+        <p>Every guardrail is a tax on every request, forever. So the design question is never <em>what should we catch</em> — it's what you are willing to let through, and who eats it when you're wrong.</p>
+        <p>Three activities that only work as one loop, and the field supplies the pieces: guardrails contain the downside, offline benchmarks stop a regression shipping, online experiments prove the change earned production. The palette is standard — PII stripping at ingress, injection detection inline, dialog-policy control, output classification, schema validation — layered so each is independently testable.</p>
+        <p>Then the calls start, and no framework makes them for you. Each layer gets a latency budget and a stance: fail open, or fail closed? A safety classifier on a customer-facing surface fails closed; a latency-sensitive enrichment check probably fails open. Backwards is its own outage.</p>
+        <p>The judgment nobody writes down is that a guardrail firing too often is a product failure, not a safety win — precision matters, because a control people learn to route around protects nothing. And you cannot guardrail your way out of a system that shouldn't be answering the question at all; stacking classifiers on a bad retrieval design is expensive theater. And online, stochastic outputs punish naive testing: a change that lifts the headline while raising refusal rate or cost per request hasn't won anything.</p>
+        <p class="modal__scope"><b>What we'd ask about yours:</b> what the worst plausible bad output is on this surface, who bears it — customer, regulator, brand — and what you're prepared to let through.</p>
     </div>
   </div>
 </dialog>
@@ -849,11 +871,11 @@
     <p class="modal__kicker">Delivery &amp; MLOps</p>
     <h3 class="modal__h" id="m-cicd-h">CI/CD for models and prompts</h3>
     <div class="modal__body">
-        <p>A prompt is a code change. It reaches users when machinery says it is safe, not when a reviewer feels good about it.</p>
-        <p>The mechanics are known: prompts in version control rather than inline strings, eval-gated CI on every change touching a prompt, model or retrieval config, layered assertions with cheap deterministic checks first, and staged rollout — shadow, canary with automated rollback, then ramp.</p>
-        <p>The judgment is in what you pin and what you catch. A prompt version means little on its own; the revertible unit is the prompt plus the model ID, decoding parameters, tool schemas and the retrieval snapshot, pinned together as one addressable thing. Do that and rollback is a config toggle instead of a fire drill.</p>
-        <p>Then there is the failure mode nobody plans for: the provider updates a hosted model underneath you and ships a change you never gated — so versions get pinned and the suite re-runs when a provider moves. And eval theater is real. A green pipeline on a stale, undersized, aggregate-only golden set is worse than no pipeline, because now the whole team trusts it.</p>
-        <p class="modal__scope"><b>What we'd ask about yours:</b> what actually breaks if a bad output ships, what ground truth exists to seed a golden set, and how often your providers move underneath you.</p>
+        <p>The most dangerous change in an AI product is the one nobody shipped: a provider updates a hosted model underneath you, and a system that passed every gate last week answers differently. No diff, no PR, no rollback target.</p>
+        <p>The delivery discipline is borrowed wholesale from software and it works: prompts in version control, eval-gated CI on anything touching a prompt, model or retrieval config, cheap assertions before expensive ones, and staged rollout — shadow, canary with automated rollback, then ramp.</p>
+        <p>The judgment starts with what a version even is. A prompt version alone is close to useless; the revertible unit is the prompt <em>plus</em> the model ID, decoding parameters, tool schemas and the retrieval snapshot, pinned as one addressable bundle. Get that right and a 2am rollback is a config toggle, not an archaeology exercise.</p>
+        <p>The part with no playbook is that you are gating a distribution, not a build. Software CI asks whether the test passed; this asks whether a stochastic system got meaningfully worse — a threshold somebody has to choose and defend. Too tight and the pipeline cries wolf until people route around it; too loose and it is decoration. And eval theater is the failure to fear most: a green suite on a stale, aggregate-only golden set is worse than none, because the team has stopped looking.</p>
+        <p class="modal__scope"><b>What we'd ask about yours:</b> what breaks if a bad output ships, what ground truth exists to seed a golden set, and how you'd find out if a provider changed the model this morning.</p>
     </div>
   </div>
 </dialog>
@@ -893,6 +915,11 @@
     </div>
   </div>
 </dialog>
+
+
+
+
+
 
 
 
