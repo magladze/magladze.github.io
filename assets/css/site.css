@@ -105,7 +105,35 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 }
 .nav__in{ display:flex; align-items:center; justify-content:space-between; gap:var(--sp-2); min-height:64px; }
 .brand{ display:inline-flex; align-items:center; gap:.6rem; color:var(--text); text-decoration:none; font-weight:650; letter-spacing:-.01em; }
-.brand__mark{ width:26px; height:26px; color:var(--accent); flex:none; }
+
+/* ---- the hero handoff: monogram → portrait avatar --------------------------------
+   Both layers live in the SAME fixed 30px box, so the swap can never reflow the nav.
+   Only opacity/transform animate; expo-out, no overshoot, once per direction.        */
+.brand__id{ position:relative; width:30px; height:30px; flex:none; }
+.brand__mark,
+.brand__avatar{
+  position:absolute; inset:0; width:30px; height:30px;
+  transition:opacity .26s cubic-bezier(.16,1,.3,1), transform .52s cubic-bezier(.16,1,.3,1);
+}
+.brand__mark{ color:var(--accent); opacity:1; transform:scale(1); }
+.brand__avatar{
+  opacity:0; transform:scale(.72) translateY(6px);
+  border-radius:50%; overflow:hidden;
+  transition-delay:.12s;
+}
+.brand__avatar img{ width:100%; height:100%; object-fit:cover; border-radius:50%; }
+.brand__ring{
+  position:absolute; inset:0; width:100%; height:100%; overflow:visible;
+}
+.brand__ring circle{
+  fill:none; stroke:var(--accent); stroke-width:1.4;
+  stroke-dasharray:117.5; stroke-dashoffset:117.5;
+  transition:stroke-dashoffset .7s cubic-bezier(.16,1,.3,1) .18s;
+}
+:root[data-docked="true"] .brand__mark{ opacity:0; transform:scale(.72); }
+:root[data-docked="true"] .brand__avatar{ opacity:1; transform:scale(1) translateY(0); }
+:root[data-docked="true"] .brand__ring circle{ stroke-dashoffset:0; }
+
 .nav__links{ display:flex; gap:1.6rem; list-style:none; margin:0; padding:0; min-width:0; }
 .nav__links li{ flex:none; }
 .nav__links a{
@@ -300,13 +328,33 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
   padding:var(--sp-2); border:1px solid var(--line); border-radius:var(--r);
   background:rgba(16,24,37,.82); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
 }
-/* Portrait slot — styling is pre-written so a real headshot is a drop-in, not a redesign.
-   See the commented figure in index.html's About section. */
+/* ---- About portrait: duotone resolving into full colour ---------------------------
+   One image. The tint is a blend layer, so the "resolve" animates opacity only and
+   costs zero extra bytes. Fixed aspect-ratio box + width/height attrs = zero CLS.    */
 .portrait{
-  margin:0; border:1px solid var(--line); border-radius:var(--r); overflow:hidden;
-  background:#0A0F17; aspect-ratio:1/1;
+  position:relative; margin:0;
+  border:1px solid var(--line); border-radius:var(--r); overflow:hidden;
+  background:#0A0F17; aspect-ratio:1/1; isolation:isolate;
 }
-.portrait img{ width:100%; height:100%; object-fit:cover; }
+.portrait img{
+  width:100%; height:100%; object-fit:cover; object-position:50% 42%;
+  transform:translateY(0) scale(1.06); will-change:transform;
+}
+.portrait__tint{
+  position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(150deg, #22D3EE 0%, #2A5BD7 55%, #101825 100%);
+  mix-blend-mode:color; opacity:1;
+  transition:opacity .6s cubic-bezier(.16,1,.3,1) .12s;
+}
+.portrait.in .portrait__tint{ opacity:0; }
+
+/* Parallax only where scroll-driven animation exists; elsewhere it is simply absent. */
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion: no-preference) and (min-width:901px){
+    @keyframes portrait-drift{ from{ transform:translateY(-14px) scale(1.06); } to{ transform:translateY(14px) scale(1.06); } }
+    .portrait img{ animation:portrait-drift linear both; animation-timeline:view(); animation-range:entry 10% exit 90%; }
+  }
+}
 .panel__h{ font-size:var(--t--1); letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin-bottom:var(--sp); }
 .plain{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.75rem; }
 .plain li{ font-size:var(--t--1); color:var(--muted); line-height:1.55; }
@@ -347,8 +395,17 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 .rise.in{ opacity:1; transform:none; }
 @media (prefers-reduced-motion: reduce){
   .rise{ opacity:1; transform:none; transition:none; }
+  /* Final state immediately. The tint layer is driven by a JS-added class that never
+     arrives under reduce, so it must be resolved here or the portrait would sit
+     permanently duotone. The dock still swaps — it just snaps instead of animating. */
+  .portrait__tint{ opacity:0 !important; transition:none !important; }
+  .portrait img{ transform:none !important; animation:none !important; }
+  .brand__mark,.brand__avatar,.brand__ring circle{ transition:none !important; }
   *,*::before,*::after{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
 }
+/* Below 900px: avatar stays, parallax is dropped (small viewports scroll fast enough
+   that parallax reads as jitter). The portrait itself remains — it's the honest one. */
+@media (max-width:900px){ .portrait img{ animation:none; transform:none; } }
 
 /* ---------- print ---------- */
 @media print{

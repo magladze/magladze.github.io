@@ -46,10 +46,18 @@
 <header class="nav" id="top">
   <div class="wrap nav__in">
     <a class="brand" href="#top" aria-label="Mikhail Agladze — home">
-      <svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
-        <path d="M14 46 L32 16 L50 46" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M22 38 H42" stroke="#F0B429" stroke-width="5" stroke-linecap="round"/>
-      </svg>
+      <span class="brand__id">
+        <svg class="brand__mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <path d="M14 46 L32 16 L50 46" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 38 H42" stroke="#F0B429" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+        <span class="brand__avatar" aria-hidden="true">
+          <img src="images/portrait-avatar.webp" alt="" width="192" height="192" loading="lazy" decoding="async">
+          <svg class="brand__ring" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+            <circle cx="20" cy="20" r="18.7"/>
+          </svg>
+        </span>
+      </span>
       <span class="brand__txt">Mikhail&nbsp;Agladze</span>
     </a>
     <nav aria-label="Primary">
@@ -418,13 +426,10 @@
       </div>
 
       <aside class="about__side">
-        <!-- PORTRAIT SLOT — drop images/portrait.jpg (or .webp) in place, then delete this
-             comment and uncomment the figure below. Styling is already written; nothing
-             else needs to change. Recommended: square-ish, ≥800×800, plain/dark background.
         <figure class="portrait">
-          <img src="images/portrait.jpg" alt="Mikhail Agladze" width="800" height="800" loading="lazy" decoding="async">
+          <img src="images/portrait.webp" alt="Mikhail Agladze" width="720" height="720" loading="lazy" decoding="async">
+          <span class="portrait__tint" aria-hidden="true"></span>
         </figure>
-        -->
         <div class="panel">
           <h3 class="panel__h">Certifications</h3>
           <ul class="plain">
@@ -517,11 +522,30 @@
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Hero handoff: monogram → portrait avatar in the nav. Same IntersectionObserver
+  // primitive as the reveals below; no scroll listeners, no layout reads.
+  // Observes the hero element itself — a zero-height sentinel is not a reliable
+  // IntersectionObserver target, which cost a debugging round to find.
+  (function () {
+    var hero = document.querySelector('.hero');
+    if (!hero || !('IntersectionObserver' in window)) { return; }
+    new IntersectionObserver(function (entries) {
+      var e = entries[entries.length - 1];
+      // Docked once the hero has left the (inset) root and we are below its top edge.
+      // NB: test `top < 0`, not `bottom <= 0` — the -64px rootMargin means the hero stops
+      // intersecting while its bottom is still ~64px, so a bottom test evaluates false at
+      // the one moment the callback fires and never fires again.
+      var docked = !e.isIntersecting && e.boundingClientRect.top < 0;
+      document.documentElement.setAttribute('data-docked', docked ? 'true' : 'false');
+    }, { rootMargin: '-64px 0px 0px 0px', threshold: 0 }).observe(hero);
+  })();
+
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { rootMargin: '0px 0px -8% 0px' });
-    document.querySelectorAll('.sec__head, .card, .work__item, .vol, .panel, .stack__grp, .stat').forEach(function (el) {
+    document.querySelectorAll('.sec__head, .card, .work__item, .vol, .panel, .stack__grp, .stat, .portrait').forEach(function (el) {
       el.classList.add('rise'); io.observe(el);
     });
   }
