@@ -209,7 +209,7 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 .sec--band{ isolation:isolate; overflow:hidden; }
 .band__art{ position:absolute; inset:0; z-index:-2; }
 .band__art img{ width:100%; height:100%; object-fit:cover; opacity:.4; }
-.band__art--soft img{ opacity:.26; }
+.band__art--soft img{ opacity:.40; }
 .sec--band::after{
   content:""; position:absolute; inset:0; z-index:-1;
   background:linear-gradient(180deg, var(--bg) 0%, rgba(7,10,15,.72) 30%, rgba(7,10,15,.78) 70%, var(--bg) 100%);
