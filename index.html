@@ -275,6 +275,26 @@
                 <!-- infra strip -->
                 <line x1="8" y1="264" x2="972" y2="264" stroke="rgba(255,255,255,.12)"/>
                 <text x="8" y="288" class="d-sub">Terraform IaC · 11 Lambda functions · Aurora Serverless v2 · SQS with dead-letter handling · CloudWatch observability</text>
+
+                <!-- Documents flowing the cascade. Counts are ILLUSTRATIVE of the shape of the
+                     pattern (most resolve early, fewest reach the model) — they are not a claimed
+                     split for this engagement. Runs once on view, then settles. -->
+                <g class="toks" aria-hidden="true">
+                  <circle class="tok tok--1" r="3.2" style="animation-delay:0s"></circle>
+                  <circle class="tok tok--1" r="3.2" style="animation-delay:.09s"></circle>
+                  <circle class="tok tok--1" r="3.2" style="animation-delay:.18s"></circle>
+                  <circle class="tok tok--1" r="3.2" style="animation-delay:.27s"></circle>
+                  <circle class="tok tok--1" r="3.2" style="animation-delay:.36s"></circle>
+                  <circle class="tok tok--1" r="3.2" style="animation-delay:.45s"></circle>
+                  <circle class="tok tok--1" r="3.2" style="animation-delay:.54s"></circle>
+                  <circle class="tok tok--1" r="3.2" style="animation-delay:.63s"></circle>
+                  <circle class="tok tok--2" r="3.2" style="animation-delay:.06s"></circle>
+                  <circle class="tok tok--2" r="3.2" style="animation-delay:.24s"></circle>
+                  <circle class="tok tok--2" r="3.2" style="animation-delay:.42s"></circle>
+                  <circle class="tok tok--2" r="3.2" style="animation-delay:.60s"></circle>
+                  <circle class="tok tok--3" r="3.2" style="animation-delay:.15s"></circle>
+                  <circle class="tok tok--3" r="3.2" style="animation-delay:.48s"></circle>
+                </g>
               </svg>
               <figcaption>The tiered cascade: each stage resolves what it can, so the most
                 expensive stage sees the fewest documents.</figcaption>
@@ -548,6 +568,17 @@
     document.querySelectorAll('.sec__head, .card, .work__item, .vol, .panel, .stack__grp, .stat, .portrait').forEach(function (el) {
       el.classList.add('rise'); io.observe(el);
     });
+
+    // The cascade runs once, when the diagram is properly on screen.
+    var dgm = document.querySelector('.diagram');
+    if (dgm) {
+      var io2 = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('run'); io2.unobserve(e.target); }
+        });
+      }, { threshold: 0.4 });
+      io2.observe(dgm);
+    }
   }
 </script>
 </body>

@@ -292,6 +292,51 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 .d-esc{ fill:#8593A8; font:500 12px var(--mono); letter-spacing:.04em; }
 .d-esc--a{ fill:var(--accent-2); }
 
+/* ---- the cascade runs -------------------------------------------------------------
+   Documents enter, most resolve at Tier 1 and peel onto the rail, fewer reach Tier 2,
+   fewest reach the model. The thesis performed instead of asserted. Once, on view,
+   then it settles back to the static diagram — which stays the resting state.        */
+.tok{
+  fill:var(--accent); opacity:0;
+  transform-box:view-box; transform-origin:0 0;
+  transform:translate(67px,112px);
+}
+.tok--3{ fill:var(--accent-2); }
+.diagram.run .tok--1{ animation:tok-t1 2.5s cubic-bezier(.42,0,.58,1) both; }
+.diagram.run .tok--2{ animation:tok-t2 2.5s cubic-bezier(.42,0,.58,1) both; }
+.diagram.run .tok--3{ animation:tok-t3 2.5s cubic-bezier(.42,0,.58,1) both; }
+
+@keyframes tok-t1{
+  0%   { transform:translate(67px,112px);  opacity:0; }
+  7%   { opacity:.85; }
+  28%  { transform:translate(280px,112px); opacity:.85; }
+  40%  { transform:translate(280px,214px); opacity:.85; }
+  90%  { transform:translate(930px,214px); opacity:.85; }
+  100% { transform:translate(930px,214px); opacity:0; }
+}
+@keyframes tok-t2{
+  0%   { transform:translate(67px,112px);  opacity:0; }
+  7%   { opacity:.85; }
+  20%  { transform:translate(280px,112px); }
+  36%  { transform:translate(532px,112px); opacity:.85; }
+  48%  { transform:translate(532px,214px); opacity:.85; }
+  90%  { transform:translate(930px,214px); opacity:.85; }
+  100% { transform:translate(930px,214px); opacity:0; }
+}
+@keyframes tok-t3{
+  0%   { transform:translate(67px,112px);  opacity:0; }
+  7%   { opacity:.9; }
+  18%  { transform:translate(280px,112px); }
+  32%  { transform:translate(532px,112px); }
+  46%  { transform:translate(784px,112px); opacity:.9; }
+  58%  { transform:translate(784px,214px); opacity:.9; }
+  90%  { transform:translate(930px,214px); opacity:.9; }
+  100% { transform:translate(930px,214px); opacity:0; }
+}
+/* Reduced motion: the tokens simply never exist. The static diagram is already the
+   final state, so nothing is lost and nothing needs re-describing. */
+@media (prefers-reduced-motion: reduce){ .toks{ display:none; } }
+
 /* ---------- writing / shelf ---------- */
 .shelf{ display:grid; grid-template-columns:repeat(4,1fr); gap:var(--sp-2); }
 @media (max-width:980px){ .shelf{ grid-template-columns:repeat(2,1fr); } }
