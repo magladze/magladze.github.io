@@ -477,9 +477,12 @@
       </div>
 
       <aside class="about__side">
-        <figure class="portrait">
-          <img src="images/portrait.webp" alt="Mikhail Agladze" width="720" height="720" loading="lazy" decoding="async">
-          <span class="portrait__tint" aria-hidden="true"></span>
+        <figure class="portrait portrait--candid">
+          <picture>
+            <source srcset="images/portrait-candid.webp" type="image/webp">
+            <img src="images/portrait-candid.jpg" alt="Mikhail Agladze outdoors in Las Vegas"
+                 width="900" height="900" loading="lazy" decoding="async">
+          </picture>
         </figure>
         <div class="panel">
           <h3 class="panel__h">Certifications</h3>
@@ -648,7 +651,7 @@
   </div>
 </footer>
 
-<!-- TODO(mike): if you want a portrait on the site, drop a real headshot at images/portrait.jpg and tell the agent — nothing here is a generated likeness of you, by design. -->
+<!-- Portraits are your own real photos: the warm candid (About) and the graded frame (nav reveal). Nothing here is a generated likeness, by design. -->
 <!-- TODO(mike): confirm you're happy describing the 2026 insurance engagement without naming the client. Your résumé names them; a public site is broader distribution, so it's genericized here. -->
 <!-- ============ the reveal — the full frame, on hover / focus / tap ============
      Fixed overlay, so it can never shift layout. The plate flies in from the left and
