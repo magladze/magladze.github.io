@@ -429,8 +429,10 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 /* ---- Cloud: a card per cloud, each service its own tile ----
    Reads as command of an arsenal rather than a résumé run-on. Monochrome + cyan; the
    LLM-era leads carry a whisper of accent so the eye lands on them first. */
-.clouds{ display:grid; grid-template-columns:repeat(2,1fr); gap:var(--sp-2); margin-top:var(--sp-3); }
-@media (max-width:640px){ .clouds{ grid-template-columns:1fr; } }
+/* Three clouds in one row — narrower cards, so the service tiles wrap into more rows
+   INSIDE each card rather than the cards wrapping. Grid stretches them to equal height. */
+.clouds{ display:grid; grid-template-columns:repeat(3,1fr); gap:var(--sp-2); margin-top:var(--sp-3); align-items:stretch; }
+@media (max-width:760px){ .clouds{ grid-template-columns:1fr; } }
 .cloud{
   background:var(--bg-2); border:1px solid var(--line); border-radius:var(--r);
   padding:var(--sp-2);
