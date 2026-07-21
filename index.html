@@ -1037,8 +1037,26 @@
     root.style.setProperty('--q-fade-in', FADE_IN + 'ms');    // CSS reads the same constants
     root.style.setProperty('--q-fade-out', FADE_OUT + 'ms');
 
-    var quotes = [], idx = 0, chain = null, phase = 'gap', slot = 0, lit = false;
+    var quotes = [], curIdx = -1, chain = null, phase = 'gap', slot = 0, lit = false;
     var layers = overlay.querySelectorAll('.q__layer');
+
+    // Shuffle-bag: draw without replacement so no quote repeats within a cycle AND every cycle
+    // is a fresh random order — not one shuffle looped forever, which is what read as "the same
+    // order again." When the bag is down to its last, refill to the full set minus the quote just
+    // shown, so a cycle boundary can never produce a back-to-back repeat.
+    var bag = [], lastShown = -1;
+    function pickNext () {
+      if (bag.length <= 1) {
+        bag = [];
+        for (var i = 0; i < quotes.length; i++) { if (i !== lastShown) { bag.push(i); } }
+        if (!bag.length) { for (var j = 0; j < quotes.length; j++) { bag.push(j); } } // 1-quote guard
+      }
+      var k = Math.floor(Math.random() * bag.length);
+      var chosen = bag[k];
+      bag.splice(k, 1);
+      lastShown = chosen;
+      return chosen;
+    }
 
     function words (s) { return s ? s.trim().split(/\s+/).length : 0; }
     // Dwell follows the whole READING LOAD, not just the quote. A 12-word Clausewitz line with a
@@ -1087,7 +1105,8 @@
 
     function step () {
       if (!quotes.length) { return; }
-      var q = quotes[idx % quotes.length];
+      if (curIdx < 0) { curIdx = pickNext(); }   // first thought of the run
+      var q = quotes[curIdx];
       phase = 'live';
       if (mode()) { show(q); }                   // closed: the clock runs, the DOM doesn't
       chain = setTimeout(function () {
@@ -1095,7 +1114,7 @@
         hide();
         chain = setTimeout(function () {
           phase = 'gap';
-          idx = (idx + 1) % quotes.length;
+          curIdx = pickNext();                   // a fresh random draw, never a fixed sequence
           step();
         }, fadeOut() + gap());
       }, fadeIn() + dwellFor(q));
@@ -1141,16 +1160,10 @@
         .then(function (r) { return r.ok ? r.json() : []; })
         .then(function (list) {
           if (!Array.isArray(list) || !list.length) { return; }
-          // Shuffled, and the accessible list keeps the authored order. In file order the set
-          // runs 16 researchers, then 11 philosophers, then Mikhail's own lines, then the
-          // painpoints — so at ~10s a quote a visitor would have to idle for six minutes to
-          // reach a second voice, and the giants-versus-his-own-lines contrast would never
-          // land. Shuffling once at load is what makes any single look representative.
+          // No pre-shuffle: the shuffle-bag (pickNext) draws randomly without replacement, so
+          // ordering is decided at draw time and every cycle differs. The accessible list keeps
+          // the authored order deliberately — it is a document, not a stream.
           quotes = list.slice();
-          for (var i = quotes.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            var t = quotes[i]; quotes[i] = quotes[j]; quotes[j] = t;
-          }
           buildList(list);
           step();
         })
@@ -1166,7 +1179,7 @@
       // alone, so without this the plate would show whichever quote was current at page load.
       // During the out/gap beat there is deliberately nothing to show — the chain brings the
       // next thought in within ~1.3s, which is the beat doing its job rather than a stall.
-      if (phase === 'live') { show(quotes[idx % (quotes.length || 1)]); }
+      if (phase === 'live' && curIdx >= 0) { show(quotes[curIdx]); }
       root.setAttribute('data-reveal', m);
     }
     function close () { clearTimeout(timer); root.removeAttribute('data-reveal'); clearNow(); }
