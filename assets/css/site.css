@@ -424,6 +424,34 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 @media (max-width:560px){ .stack{ grid-template-columns:1fr; } }
 .stack__grp h4{ font-size:var(--t--1); letter-spacing:.13em; text-transform:uppercase; color:var(--dim); margin-bottom:.85rem; font-weight:650; }
 .stack__grp .chips{ margin-top:0; }
+@media (min-width:901px){ .stack{ grid-template-columns:repeat(3,1fr); } }   /* Cloud moved out below */
+
+/* ---- Cloud: a card per cloud, each service its own tile ----
+   Reads as command of an arsenal rather than a résumé run-on. Monochrome + cyan; the
+   LLM-era leads carry a whisper of accent so the eye lands on them first. */
+.clouds{ display:grid; grid-template-columns:repeat(2,1fr); gap:var(--sp-2); margin-top:var(--sp-3); }
+@media (max-width:640px){ .clouds{ grid-template-columns:1fr; } }
+.cloud{
+  background:var(--bg-2); border:1px solid var(--line); border-radius:var(--r);
+  padding:var(--sp-2);
+}
+.cloud__name{
+  margin:0 0 var(--sp); font-size:var(--t-1); font-weight:700; letter-spacing:-.01em; color:var(--text);
+}
+.cloud__name::before{
+  content:""; display:inline-block; width:8px; height:8px; margin-right:.6rem;
+  border-radius:2px; background:var(--accent); vertical-align:middle;
+  box-shadow:0 0 0 4px var(--glow);
+}
+.tiles{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:.5rem; }
+.tile{
+  font-size:var(--t--1); color:#B6C4D6; line-height:1.2;
+  padding:.5rem .7rem; border-radius:9px;
+  border:1px solid var(--line-2); background:rgba(255,255,255,.03);
+}
+.tile--hot{
+  color:var(--text); border-color:rgba(34,211,238,.42); background:var(--glow);
+}
 
 /* ---------- contact ---------- */
 .contact{ position:relative; isolation:isolate; overflow:hidden; padding:var(--sp-5) 0; text-align:center; }
