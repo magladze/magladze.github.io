@@ -613,7 +613,7 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 .marq__set{ display:flex; align-items:center; gap:clamp(2.2rem, 5vw, 4rem); padding-right:clamp(2.2rem, 5vw, 4rem); }
 @keyframes marq{ from{ transform:translate3d(0,0,0); } to{ transform:translate3d(-50%,0,0); } }
 .marq:hover .marq__track,
-.marq:focus-within .marq__track{ animation-play-state:paused; }
+.marq:has(:focus-visible) .marq__track{ animation-play-state:paused; }
 .lg{
   /* aspect-ratio, not width:auto. An <svg> with a viewBox but no width/height attribute has
      NO intrinsic width, so `width:auto` falls back to the CSS replaced-element default of
@@ -675,10 +675,14 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
   .marq__set + .marq__set{ display:none; }
   .marq__win{ -webkit-mask-image:none; mask-image:none; }
 }
-.marq:focus-within .marq__track{ animation:none; width:auto; flex-wrap:wrap; }
-.marq:focus-within .marq__set{ flex-wrap:wrap; justify-content:flex-start; row-gap:1.4rem; padding-right:0; }
-.marq:focus-within .marq__set + .marq__set{ display:none; }
-.marq:focus-within .marq__win{ -webkit-mask-image:none; mask-image:none; }
+/* :has(:focus-visible), NOT :focus-within — the static grid is a KEYBOARD affordance, so it must
+   fire only when the browser shows a focus ring (keyboard traversal), never on a mouse click.
+   :focus-within also matched a mouse click, and since <dialog> restores focus to the trigger on
+   close, the row stayed frozen/wrapped after a click-opened modal shut, until focus left. */
+.marq:has(:focus-visible) .marq__track{ animation:none; width:auto; flex-wrap:wrap; }
+.marq:has(:focus-visible) .marq__set{ flex-wrap:wrap; justify-content:flex-start; row-gap:1.4rem; padding-right:0; }
+.marq:has(:focus-visible) .marq__set + .marq__set{ display:none; }
+.marq:has(:focus-visible) .marq__win{ -webkit-mask-image:none; mask-image:none; }
 
 /* ---- stack explainer modal: a large brand-coloured mark, the name, Mike's copy (no CTA) ---- */
 .modal--stack .stack-mark{ margin:.1rem 0 1.15rem; }
