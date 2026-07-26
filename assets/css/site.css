@@ -303,12 +303,20 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 .diagram__svg{ width:100%; min-width:560px; height:auto; display:block; }
 .diagram figcaption{ margin-top:.6rem; font-size:var(--t--1); color:var(--dim); line-height:1.5; }
 
-/* On phones the 980-unit cascade cannot shrink to width without its labels going unreadable,
-   so it scrolls sideways inside its card (the overflow-x:auto above). Make that scroll obvious:
-   an auto-hiding edge shadow (Verou's background-attachment trick — the local-attached covers
-   mask each shadow once you reach that end) plus a one-line caption hint. Desktop never sees it. */
+/* The mobile diagram has two modes, and JS picks between them (progressive enhancement):
+
+   BASELINE (no JS, or no real <dialog>) — html:not(.js-diag). The 980-unit cascade cannot shrink
+   to width without its labels going unreadable, so it scrolls sideways in its card. Make that
+   obvious: an auto-hiding edge shadow (Verou's background-attachment trick — the local covers mask
+   each shadow once you reach that end) + a caption hint. No dead end without JS.
+
+   ENHANCED (JS + real <dialog>) — html.js-diag. The preview instead FITS the card (nothing cut,
+   which was the real defect: a mid-cut diagram reads as "broken"), and a "Tap to expand" button
+   opens the full-size view. The scroll hint is dropped so we never say scroll AND tap.
+
+   Everything here is inside @media (max-width:900px); desktop sees none of it. */
 @media (max-width:900px){
-  .diagram{
+  html:not(.js-diag) .diagram{
     background:
       linear-gradient(to right, var(--surface), rgba(16,24,37,0)) 0 0 / 30px 100% no-repeat,
       linear-gradient(to left,  var(--surface), rgba(16,24,37,0)) 100% 0 / 30px 100% no-repeat,
@@ -319,11 +327,67 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
     background-color: var(--surface);
     overscroll-behavior-x: contain;
   }
-  .diagram figcaption::before{
+  html:not(.js-diag) .diagram figcaption::before{
     content:"\2194  scroll the diagram  \00B7  ";
     color:var(--accent); font-family:var(--mono); letter-spacing:.02em;
   }
+
+  html.js-diag .diagram .diagram__svg{ min-width:0; }   /* fit the card — nothing cut */
+  html.js-diag .diagram{ overflow-x:hidden; }
+  html.js-diag .diagram__expand{ display:inline-flex; }
 }
+
+/* the "Tap to expand" trigger — hidden by default (desktop, and mobile-baseline); the rule above
+   reveals it only when enhanced. Words lead; the corner-arrows glyph is decorative. */
+.diagram__expand{
+  display:none; align-items:center; justify-content:center; gap:.5rem;
+  width:100%; margin-top:.7rem; padding:.72rem 1rem;
+  font-family:var(--mono); font-size:var(--t--1); letter-spacing:.03em;
+  color:var(--accent); background:rgba(34,211,238,.06);
+  border:1px solid rgba(34,211,238,.3); border-radius:10px; cursor:pointer;
+  transition:background .18s ease, border-color .18s ease;
+}
+.diagram__expand:hover, .diagram__expand:focus-visible{ background:rgba(34,211,238,.13); border-color:var(--accent); }
+.diagram__expand-i{ width:16px; height:16px; flex:0 0 auto; }
+
+/* ---- expanded diagram dialog. .modal.modal--diagram beats the generic .modal mobile rule
+   regardless of source order, so it's a true fullscreen surface, not the bottom-sheet card. ---- */
+.modal.modal--diagram{
+  width:100vw; max-width:100vw; height:100vh; height:100dvh; max-height:100dvh;
+  margin:0; padding:0; border:0; border-radius:0; overflow:hidden;
+  background:var(--bg); transform:none;
+}
+@starting-style{ .modal.modal--diagram[open]{ transform:none; opacity:0; } }
+.modal--diagram .modal__in--diagram{ position:relative; height:100%; padding:0; }
+.modal--diagram .modal__x{ z-index:3; }
+.diagram-stage{ position:absolute; inset:0; overflow:hidden; }
+/* Absolute centering (top/left 50% + translate), NOT grid place-items: the svg's pre-rotation
+   layout box is ~90dvh wide — wider than the viewport — and grid can't center an overflowing
+   item reliably. Out-of-flow + translate centers it whatever its box size, then we rotate. */
+.diagram-stage .diagram__svg{
+  position:absolute; top:50%; left:50%;
+  min-width:0; height:auto; display:block; transform-origin:center;
+  transform:translate(-50%,-50%);
+  filter:drop-shadow(0 10px 44px rgba(0,0,0,.55));
+}
+.diagram-turn{
+  position:absolute; top:max(1rem, env(safe-area-inset-top)); left:0; right:0; z-index:2; margin:0;
+  text-align:center; font-family:var(--mono); font-size:var(--t--1); letter-spacing:.08em;
+  text-transform:uppercase; color:var(--dim); pointer-events:none;
+}
+/* portrait: rotate onto the phone's long axis — large, but text is sideways, which cues the turn */
+@media (orientation:portrait){
+  .diagram-stage .diagram__svg{ width:88vh; width:88dvh; transform:translate(-50%,-50%) rotate(90deg); }
+}
+/* landscape: natural orientation, fills the width, labels legible */
+@media (orientation:landscape){
+  .diagram-stage .diagram__svg{ width:96vw; transform:translate(-50%,-50%); }
+  .diagram-turn{ display:none; }
+}
+/* the token cascade replays in the expanded view too (reduced-motion still hides .toks globally) */
+.modal--diagram.run .tok--1{ animation:tok-t1 2.5s cubic-bezier(.42,0,.58,1) both; }
+.modal--diagram.run .tok--2{ animation:tok-t2 2.5s cubic-bezier(.42,0,.58,1) both; }
+.modal--diagram.run .tok--3{ animation:tok-t3 2.5s cubic-bezier(.42,0,.58,1) both; }
 .d-tier{ fill:var(--accent); font:650 12px var(--mono); letter-spacing:.12em; }
 .d-tier--a{ fill:var(--accent-2); }
 .d-hd{ fill:#E9EFF8; font:600 15px var(--sans); }

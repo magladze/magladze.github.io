@@ -20,6 +20,12 @@
 <link rel="preload" as="image" href="images/hero.webp" type="image/webp" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/site.css">
 
+<!-- Enhancement flag set before first paint, so the mobile architecture diagram renders
+     fit-to-width from the very first frame (no post-load reflow, no layout shift). The clone +
+     expand wiring runs at end of <body>; if it can't complete it removes this class and the
+     no-JS scroll baseline takes over. Gated on real <dialog> support. -->
+<script>if(window.HTMLDialogElement&&HTMLDialogElement.prototype.showModal){document.documentElement.classList.add('js-diag');}</script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -321,6 +327,13 @@
               </svg>
               <figcaption>The tiered cascade: each stage resolves what it can, so the most
                 expensive stage sees the fewest documents.</figcaption>
+              <!-- Mobile-only, JS-only: the preview fits the card (nothing cut); this opens it full-size.
+                   Words, not a lone glyph — the icon is decorative. Hidden with no JS, where the diagram
+                   stays scrollable instead (see the baseline scroll hint in the caption). -->
+              <button type="button" class="diagram__expand" data-diagram-expand aria-haspopup="dialog" aria-label="Expand the architecture diagram">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="diagram__expand-i"><path d="M9 4H5a1 1 0 0 0-1 1v4M15 4h4a1 1 0 0 1 1 1v4M9 20H5a1 1 0 0 1-1-1v-4M15 20h4a1 1 0 0 1 1-1v-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                <span>Tap to expand</span>
+              </button>
             </figure>
 
             <p>Delivered solo as roughly 16,000 lines of production Python and Terraform,
@@ -953,6 +966,23 @@
   </div>
 </dialog>
 
+<!-- Expanded architecture diagram. Reuses the .modal <dialog> component (native focus-trap, ESC,
+     focus-restore). The SVG is cloned in here at init with de-duplicated ids; the preview keeps
+     its own copy so no-JS visitors still see (and scroll) the diagram in place. In portrait the
+     stage is rotated to the phone's long axis — turning the phone snaps it to natural orientation. -->
+<dialog class="modal modal--diagram" id="m-diagram" aria-labelledby="m-diagram-h">
+  <div class="modal__in modal__in--diagram">
+    <button type="button" class="modal__x" aria-label="Close diagram">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <h3 class="sr-only" id="m-diagram-h">Tiered classification cascade, expanded view</h3>
+    <p class="diagram-turn" aria-hidden="true">Turn your phone to read it</p>
+    <div class="diagram-stage" id="diagram-stage"></div>
+  </div>
+</dialog>
+
 
 
 
@@ -992,6 +1022,50 @@
       dlg.querySelector('.modal__x').addEventListener('click', function () { shut(dlg); });
       dlg.addEventListener('close', function () { root.classList.remove('modal-open'); });
     });
+  })();
+
+
+  // Diagram expand — progressive enhancement layered over the no-JS scroll baseline.
+  // Only engages where <dialog> is real; otherwise the diagram stays scrollable in place
+  // (the CSS scroll hint shows) and this whole block is a no-op — no dead end.
+  (function () {
+    var fig = document.querySelector('.diagram');
+    var svg = fig && fig.querySelector('.diagram__svg');
+    var dlg = document.getElementById('m-diagram');
+    var btn = document.querySelector('[data-diagram-expand]');
+    var stage = document.getElementById('diagram-stage');
+    var root = document.documentElement;
+    // If anything needed is missing, undo the head-script enhancement so the no-JS scroll
+    // baseline takes over — never a fit-to-width preview with a dead expand button.
+    if (!fig || !svg || !dlg || !btn || !stage || !window.HTMLDialogElement || typeof dlg.showModal !== 'function') {
+      root.classList.remove('js-diag');
+      return;
+    }
+
+    // Clone the SVG into the dialog with de-duplicated ids, so the preview keeps its own copy
+    // (no moving = no reflow behind the modal, no risk of losing it) and the DOM stays valid.
+    var clone = svg.cloneNode(true);
+    clone.querySelectorAll('[id]').forEach(function (el) { el.id = el.id + '-x'; });
+    clone.querySelectorAll('[marker-end]').forEach(function (el) {
+      el.setAttribute('marker-end', el.getAttribute('marker-end').replace(/#([\w-]+)\)/, '#$1-x)'));
+    });
+    clone.setAttribute('aria-labelledby', 'dgm-t-x dgm-d-x');
+    clone.removeAttribute('tabindex');
+    stage.appendChild(clone);
+
+    function replay () {                 // restart the token cascade on every open
+      dlg.classList.remove('run');
+      void dlg.offsetWidth;              // reflow so the animation re-triggers
+      dlg.classList.add('run');
+    }
+    btn.addEventListener('click', function () {
+      dlg.showModal();
+      root.classList.add('modal-open');
+      replay();
+    });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg) { dlg.close(); } });
+    dlg.querySelector('.modal__x').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('close', function () { root.classList.remove('modal-open'); dlg.classList.remove('run'); });
   })();
 
   // The reveal. Three input paths, because hover is a mouse-only affordance:
