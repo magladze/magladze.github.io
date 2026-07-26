@@ -138,7 +138,7 @@
         <span class="stat__l">Lines of production AI shipped <em>solo</em> on a single enterprise engagement</span>
       </div>
       <div class="stat">
-        <span class="stat__n">10<span class="plus">+</span></span>
+        <span class="stat__n">20<span class="plus">+</span></span>
         <span class="stat__l">Published technical titles on the tools he builds with</span>
       </div>
       <div class="stat">
@@ -403,9 +403,10 @@
       <header class="sec__head">
         <p class="kicker">Writing</p>
         <h2>A published library on the tools I build with.</h2>
-        <p class="sec__sub">Ten-plus technical titles across applied machine learning,
-          perception, retrieval and real-time systems — each written to be the explanation I
-          wanted when I first picked the subject up. Available on Amazon.</p>
+        <p class="sec__sub">Twenty-plus technical titles across applied machine learning,
+          retrieval, signal processing and real-time systems — each written to be the explanation I
+          wanted when I first picked the subject up. A selection is below; the full catalogue is on
+          Amazon.</p>
       </header>
 
       <div class="shelf">
@@ -414,48 +415,44 @@
           <div class="vol__body">
             <p class="vol__cat">Frameworks</p>
             <ul class="vol__list">
-              <li>Scikit-Learn <span>A Detailed Overview</span></li>
-              <li>PyTorch <span>A Detailed Overview</span></li>
-              <li>TensorFlow <span>A Detailed Overview</span></li>
+              <li><button type="button" class="bookline" data-modal="m-book-scikit-learn" aria-haspopup="dialog"><span class="bookline__t">Scikit-Learn</span> <span>A Detailed Overview</span></button></li>
+              <li><button type="button" class="bookline" data-modal="m-book-pytorch" aria-haspopup="dialog"><span class="bookline__t">PyTorch</span> <span>A Detailed Overview</span></button></li>
+              <li><button type="button" class="bookline" data-modal="m-book-tensorflow" aria-haspopup="dialog"><span class="bookline__t">TensorFlow</span> <span>A Detailed Overview</span></button></li>
             </ul>
           </div>
         </article>
-
-        <article class="vol">
-          <div class="vol__art"><img src="images/book-vision.webp" alt="" width="1024" height="1024" loading="lazy" decoding="async"></div>
-          <div class="vol__body">
-            <p class="vol__cat">Perception</p>
-            <ul class="vol__list">
-              <li>Computer Vision <span>The Basics</span></li>
-              <li>Audio Intelligence <span>AI Audio Engineering</span></li>
-            </ul>
-          </div>
-        </article>
-
         <article class="vol">
           <div class="vol__art"><img src="images/book-retrieval.webp" alt="" width="1024" height="1024" loading="lazy" decoding="async"></div>
           <div class="vol__body">
-            <p class="vol__cat">Retrieval</p>
+            <p class="vol__cat">Retrieval &amp; meaning</p>
             <ul class="vol__list">
-              <li>Vector Database Fundamentals</li>
-              <li>Semantic Search <span>A Beginner's Guide</span></li>
+              <li><button type="button" class="bookline" data-modal="m-book-vector-database-fundamentals" aria-haspopup="dialog"><span class="bookline__t">Vector Database Fundamentals</span></button></li>
+              <li><button type="button" class="bookline" data-modal="m-book-semantic-analysis" aria-haspopup="dialog"><span class="bookline__t">Semantic Analysis</span> <span>A Gentle Technical Introduction</span></button></li>
             </ul>
           </div>
         </article>
-
+        <article class="vol">
+          <div class="vol__art"><img src="images/book-vision.webp" alt="" width="1024" height="1024" loading="lazy" decoding="async"></div>
+          <div class="vol__body">
+            <p class="vol__cat">Signals &amp; detection</p>
+            <ul class="vol__list">
+              <li><button type="button" class="bookline" data-modal="m-book-audio-intelligence" aria-haspopup="dialog"><span class="bookline__t">Audio Intelligence</span> <span>AI Audio Engineering</span></button></li>
+              <li><button type="button" class="bookline" data-modal="m-book-anomaly-detection" aria-haspopup="dialog"><span class="bookline__t">Anomaly Detection Architectures</span></button></li>
+            </ul>
+          </div>
+        </article>
         <article class="vol">
           <div class="vol__art"><img src="images/book-engine.webp" alt="" width="1024" height="1024" loading="lazy" decoding="async"></div>
           <div class="vol__body">
             <p class="vol__cat">Real-time systems</p>
             <ul class="vol__list">
-              <li>Game Engine Theory <span>The Foundations</span></li>
-              <li>Game Engine Basics <span>Physics Engines</span></li>
-              <li>Game Engine Basics <span>Artificial Intelligence</span></li>
+              <li><button type="button" class="bookline" data-modal="m-book-geb-physics-engines" aria-haspopup="dialog"><span class="bookline__t">Game Engine Basics</span> <span>Physics Engines</span></button></li>
+              <li><button type="button" class="bookline" data-modal="m-book-geb-artificial-intelligence" aria-haspopup="dialog"><span class="bookline__t">Game Engine Basics</span> <span>Artificial Intelligence</span></button></li>
             </ul>
           </div>
         </article>
       </div>
-      <!-- TODO(mike): link each title to its Amazon page, or link once to your Amazon author page. Also confirm the 140+ data-architect interview-question guide — where should it point? -->
+      <!-- Per-book Amazon links are live (Kindle dp/ASIN, no tracking params). TODO(mike): supply your Amazon AUTHOR-PAGE URL to wire "the full catalogue is on Amazon" above. 140+ interview guide: confirmed legit (accompanies a YouTube video), intentionally not linked to Amazon. -->
       <p class="books__note">Also the author of a 140-plus question guide for data architecture interviews.</p>
     </div>
   </section>
@@ -483,7 +480,7 @@
           discovery and acceptance testing through pilot and into production, tied to outcomes
           someone can actually measure. Most recently, document intelligence at scale for an
           enterprise insurance carrier.</p>
-        <p>I've also written ten-plus technical titles on the libraries and systems I build with.
+        <p>I've also written twenty-plus technical titles on the libraries and systems I build with.
           Teaching something is the fastest way to find out whether you really understand it —
           the books are where I find out.</p>
         <p>Based in Las Vegas, Nevada. Working with clients anywhere.</p>
@@ -983,6 +980,151 @@
   </div>
 </dialog>
 
+<dialog class="modal modal--book" id="m-book-scikit-learn" aria-labelledby="m-book-scikit-learn-h">
+  <div class="modal__in modal__in--book">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="book">
+      <div class="book__cover"><img src="images/books/scikit-learn.webp" alt="" width="600" height="960" loading="lazy" decoding="async"></div>
+      <div class="book__meta">
+        <p class="modal__kicker">Frameworks</p>
+        <h3 class="modal__h" id="m-book-scikit-learn-h">Scikit-Learn <span class="book__sub">A Detailed Overview</span></h3>
+        <div class="modal__body"><p>Twenty-seven chapters on scikit-learn, running from environment setup and data cleaning through every major estimator family — regression, classification, clustering, dimensionality reduction — and on into pipelines, ensemble methods, SHAP and LIME interpretation, imbalanced data, and deployment behind Flask, Docker and Kubernetes. About a quarter of its 187 sections carry worked Python; the rest is discussion. It suits someone already calling fit and predict who wants the workflow around them: custom transformers, data leakage, model versioning, retraining in production.</p></div>
+        <a class="book__buy" href="https://www.amazon.com/dp/B0D7V2BV6F" target="_blank" rel="noopener" aria-label="Buy Scikit-Learn: A Detailed Overview on Amazon — opens amazon.com in a new tab">Buy on Amazon <svg class="book__buy-i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4l-9 9M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal modal--book" id="m-book-pytorch" aria-labelledby="m-book-pytorch-h">
+  <div class="modal__in modal__in--book">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="book">
+      <div class="book__cover"><img src="images/books/pytorch.webp" alt="" width="600" height="960" loading="lazy" decoding="async"></div>
+      <div class="book__meta">
+        <p class="modal__kicker">Frameworks</p>
+        <h3 class="modal__h" id="m-book-pytorch-h">PyTorch <span class="book__sub">A Detailed Overview</span></h3>
+        <div class="modal__body"><p>Twenty-seven chapters spanning tensors and autograd, CNNs, RNNs and LSTMs, GANs and graph neural networks, then reinforcement learning, distributed training, TorchServe deployment and PyTorch Lightning. Roughly a third of the 187 sections carry worked PyTorch code, including custom autograd functions and custom nn.Module layers. It fits a reader who has trained a model from a tutorial and now needs profiling, multi-GPU training and a serving story.</p></div>
+        <a class="book__buy" href="https://www.amazon.com/dp/B0D8JKG6GX" target="_blank" rel="noopener" aria-label="Buy PyTorch: A Detailed Overview on Amazon — opens amazon.com in a new tab">Buy on Amazon <svg class="book__buy-i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4l-9 9M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal modal--book" id="m-book-tensorflow" aria-labelledby="m-book-tensorflow-h">
+  <div class="modal__in modal__in--book">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="book">
+      <div class="book__cover"><img src="images/books/tensorflow.webp" alt="" width="600" height="960" loading="lazy" decoding="async"></div>
+      <div class="book__meta">
+        <p class="modal__kicker">Frameworks</p>
+        <h3 class="modal__h" id="m-book-tensorflow-h">TensorFlow <span class="book__sub">A Detailed Overview</span></h3>
+        <div class="modal__body"><p>Twenty-seven chapters that spend as much time on the TensorFlow ecosystem as on modeling: TFX pipelines, TensorFlow Serving, Lite for mobile and embedded targets, TensorFlow.js, Hub and Probability each get their own chapter, alongside CNNs, RNNs, GANs and transformers. The code is TF2-idiomatic — tf.keras, GradientTape, tf.function — and appears in about a fifth of the 189 sections. It is useful to someone deciding how a TensorFlow model gets from a notebook onto a phone, into a browser, or onto a serving cluster.</p></div>
+        <a class="book__buy" href="https://www.amazon.com/dp/B0D8GC8GLP" target="_blank" rel="noopener" aria-label="Buy TensorFlow: A Detailed Overview on Amazon — opens amazon.com in a new tab">Buy on Amazon <svg class="book__buy-i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4l-9 9M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal modal--book" id="m-book-vector-database-fundamentals" aria-labelledby="m-book-vector-database-fundamentals-h">
+  <div class="modal__in modal__in--book">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="book">
+      <div class="book__cover"><img src="images/books/vector-database-fundamentals.webp" alt="" width="600" height="960" loading="lazy" decoding="async"></div>
+      <div class="book__meta">
+        <p class="modal__kicker">Retrieval &amp; meaning</p>
+        <h3 class="modal__h" id="m-book-vector-database-fundamentals-h">Vector Database Fundamentals </h3>
+        <div class="modal__body"><p>Eight chapters treating a vector database as a database system rather than as an accessory to a language model: storage layout and compression, indexing (LSH, HNSW, ScaNN, tree structures, inverted indexes), the distance metrics and when each one applies, then query planning, partitioning, replication, consensus and access control. It is about the mechanisms rather than about product selection, and there is no code. It is written for someone who has called a vector database through an API and wants to know what the index is doing underneath.</p></div>
+        <a class="book__buy" href="https://www.amazon.com/dp/B0D8RYNW82" target="_blank" rel="noopener" aria-label="Buy Vector Database Fundamentals on Amazon — opens amazon.com in a new tab">Buy on Amazon <svg class="book__buy-i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4l-9 9M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal modal--book" id="m-book-semantic-analysis" aria-labelledby="m-book-semantic-analysis-h">
+  <div class="modal__in modal__in--book">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="book">
+      <div class="book__cover"><img src="images/books/semantic-analysis.webp" alt="" width="600" height="960" loading="lazy" decoding="async"></div>
+      <div class="book__meta">
+        <p class="modal__kicker">Retrieval &amp; meaning</p>
+        <h3 class="modal__h" id="m-book-semantic-analysis-h">Semantic Analysis <span class="book__sub">A Gentle Technical Introduction</span></h3>
+        <div class="modal__body"><p>Seven chapters that start from linguistics rather than from models: syntax and pragmatics, thematic roles, speech acts, ambiguity and its resolution, semantic networks — then semantic parsing from rule-based through statistical to neural, and lexical versus compositional semantics. It is prose throughout with no code, and it works from linguistic theory rather than from model architectures. It is for an engineer who keeps running into meaning problems in NLP work and never learned the vocabulary linguists use for them.</p></div>
+        <a class="book__buy" href="https://www.amazon.com/dp/B0D85LK5DC" target="_blank" rel="noopener" aria-label="Buy Semantic Analysis: A Gentle Technical Introduction on Amazon — opens amazon.com in a new tab">Buy on Amazon <svg class="book__buy-i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4l-9 9M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal modal--book" id="m-book-audio-intelligence" aria-labelledby="m-book-audio-intelligence-h">
+  <div class="modal__in modal__in--book">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="book">
+      <div class="book__cover"><img src="images/books/audio-intelligence.webp" alt="" width="600" height="960" loading="lazy" decoding="async"></div>
+      <div class="book__meta">
+        <p class="modal__kicker">Signals &amp; detection</p>
+        <h3 class="modal__h" id="m-book-audio-intelligence-h">Audio Intelligence <span class="book__sub">AI Audio Engineering</span></h3>
+        <div class="modal__body"><p>Seven chapters pairing signal-processing fundamentals — the sampling theorem and quantization, DFT and FFT, FIR and IIR filters, time-frequency analysis — with neural approaches to audio: CNN feature extraction, attention, autoencoder denoising and VAE music generation. A handful of sections carry Python built on librosa and TensorFlow; the rest is descriptive. It is aimed at an audio engineer picking up the machine learning vocabulary, or an ML engineer who needs the DSP that comes before it.</p></div>
+        <a class="book__buy" href="https://www.amazon.com/dp/B0D8GCM67K" target="_blank" rel="noopener" aria-label="Buy Audio Intelligence: AI Audio Engineering on Amazon — opens amazon.com in a new tab">Buy on Amazon <svg class="book__buy-i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4l-9 9M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal modal--book" id="m-book-anomaly-detection" aria-labelledby="m-book-anomaly-detection-h">
+  <div class="modal__in modal__in--book">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="book">
+      <div class="book__cover"><img src="images/books/anomaly-detection.webp" alt="" width="600" height="960" loading="lazy" decoding="async"></div>
+      <div class="book__meta">
+        <p class="modal__kicker">Signals &amp; detection</p>
+        <h3 class="modal__h" id="m-book-anomaly-detection-h">Anomaly Detection Architectures </h3>
+        <div class="modal__body"><p>Seven chapters organized by method rather than by tool: the point/contextual/collective taxonomy, statistical detection (control charts, hypothesis testing, Bayesian methods), machine learning and autoencoder approaches, ARIMA and LSTM for time series, and a chapter on real-time systems covering stream processing, concept drift and low-latency architecture. There is no code — it is about choosing and arranging methods rather than implementing them. It suits someone building monitoring or fraud detection who needs to pick a technique and be able to defend the choice.</p></div>
+        <a class="book__buy" href="https://www.amazon.com/dp/B0D8K6JVSB" target="_blank" rel="noopener" aria-label="Buy Anomaly Detection Architectures on Amazon — opens amazon.com in a new tab">Buy on Amazon <svg class="book__buy-i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4l-9 9M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal modal--book" id="m-book-geb-physics-engines" aria-labelledby="m-book-geb-physics-engines-h">
+  <div class="modal__in modal__in--book">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="book">
+      <div class="book__cover"><img src="images/books/geb-physics-engines.webp" alt="" width="600" height="960" loading="lazy" decoding="async"></div>
+      <div class="book__meta">
+        <p class="modal__kicker">Real-time systems</p>
+        <h3 class="modal__h" id="m-book-geb-physics-engines-h">Game Engine Basics <span class="book__sub">Physics Engines</span></h3>
+        <div class="modal__body"><p>Seven chapters on the simulation layer: rigid body kinematics and the equations of motion, numerical integrators (Verlet, Runge-Kutta) and when they go unstable, broad- and narrow-phase collision detection, soft bodies via finite element methods, SPH and grid-based fluid simulation, and character controllers. It names the actual numerical methods rather than stopping at &#x27;the physics engine handles it&#x27;, and it states the governing equations, though there is no code and there are no diagrams. It is written for a gameplay programmer who wants to understand why a simulation jitters or blows up.</p></div>
+        <a class="book__buy" href="https://www.amazon.com/dp/B0D9KP8QQ2" target="_blank" rel="noopener" aria-label="Buy Game Engine Basics: Physics Engines on Amazon — opens amazon.com in a new tab">Buy on Amazon <svg class="book__buy-i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4l-9 9M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</dialog>
+<dialog class="modal modal--book" id="m-book-geb-artificial-intelligence" aria-labelledby="m-book-geb-artificial-intelligence-h">
+  <div class="modal__in modal__in--book">
+    <button type="button" class="modal__x" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="book">
+      <div class="book__cover"><img src="images/books/geb-artificial-intelligence.webp" alt="" width="600" height="960" loading="lazy" decoding="async"></div>
+      <div class="book__meta">
+        <p class="modal__kicker">Real-time systems</p>
+        <h3 class="modal__h" id="m-book-geb-artificial-intelligence-h">Game Engine Basics <span class="book__sub">Artificial Intelligence</span></h3>
+        <div class="modal__body"><p>Seven chapters on the techniques that actually run in shipped games: A* and navmesh pathfinding, finite state machines against behavior trees against utility AI including a section comparing them directly, procedural generation from noise functions, and agent-based emergent behavior. Machine learning gets one chapter of the seven; the rest is classical game AI. There is no code — it works at the design level, for someone who has used a navmesh in Unity or Unreal and wants to choose between decision-making architectures.</p></div>
+        <a class="book__buy" href="https://www.amazon.com/dp/B0D9MK59XQ" target="_blank" rel="noopener" aria-label="Buy Game Engine Basics: Artificial Intelligence on Amazon — opens amazon.com in a new tab">Buy on Amazon <svg class="book__buy-i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 4h6v6M20 4l-9 9M18 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</dialog>
+
 
 
 
@@ -1001,7 +1143,7 @@
   // background and focus restoration are the platform's rather than reimplemented. The two
   // it doesn't give you are backdrop-click-to-close and locking the page behind it.
   (function () {
-    var openers = document.querySelectorAll('.cap__b');
+    var openers = document.querySelectorAll('[data-modal]');   // capability bullets + book name-lines
     if (!openers.length || !window.HTMLDialogElement) { return; }
     var root = document.documentElement;
 
