@@ -680,6 +680,10 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 }
 .modal__x:hover,.modal__x:focus-visible{ color:var(--text); border-color:var(--accent); }
 .modal__x svg{ width:20px; height:20px; }
+/* Header wrapper around .modal__x. On desktop it's display:contents — no box, so the button keeps
+   its absolute top-right position against .modal__in and desktop is byte-identical. It becomes a
+   real sticky bar only in the mobile-sheet media query below. (The diagram modal has no .modal__hd.) */
+.modal__hd{ display:contents; }
 .modal__kicker{
   margin:0 0 .5rem; font-size:var(--t--1); font-weight:650;
   letter-spacing:.14em; text-transform:uppercase; color:var(--accent);
@@ -701,8 +705,28 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 }
 .modal__scope b{ color:var(--accent); font-weight:650; }
 @media (max-width:640px){
-  .modal{ width:100vw; max-width:100vw; max-height:92vh; border-radius:var(--r) var(--r) 0 0;
+  .modal{ width:100vw; max-width:100vw; max-height:92dvh; border-radius:var(--r) var(--r) 0 0;
           margin:auto auto 0; border-bottom:0; }
+  /* ---- pinned sticky header, shared by all 21 sheet modals (diagram has no .modal__hd) ----
+     The sheet (.modal) is the scroll container; this bar is the first child in that scroll flow,
+     so position:sticky pins it to the top however far the content scrolls. It (a) keeps the close
+     button always reachable and (b) is opaque and full-bleed, so content slides UNDER a deliberate
+     straight edge instead of being clipped by the rounded top corner (Mike's "amputated cover"). */
+  .modal__hd{
+    display:flex; align-items:center; justify-content:flex-end;
+    position:sticky; top:0; z-index:4; min-height:2.9rem;
+    background:var(--surface); border-radius:var(--r) var(--r) 0 0;
+    border-bottom:1px solid var(--line);
+  }
+  /* Capability sheets: .modal__in pads 1.5rem at <=640px (clamp floor) — negative-margin the bar
+     out to the sheet edges so it masks the full width and covers the rounded corners. */
+  .modal__in > .modal__hd{ margin:-1.5rem -1.5rem 0; padding:0 .55rem 0 1.5rem; }
+  /* Book sheets: .modal__in--book has padding:0, so the bar is already full-bleed. */
+  .modal__in--book > .modal__hd{ margin:0; padding:0 .55rem; }
+  /* The close button drops its absolute positioning and sits inside the flex bar. */
+  .modal__hd .modal__x{ position:static; top:auto; right:auto; width:40px; height:40px; }
+  /* Book cover no longer needs to clear a floating close button; the bar owns the top strip. */
+  .modal--book .book{ padding-top:1.15rem; }
 }
 @media (prefers-reduced-motion: reduce){
   .modal{ transition:opacity .14s linear, overlay .14s allow-discrete, display .14s allow-discrete;
