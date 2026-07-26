@@ -705,8 +705,13 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 }
 .modal__scope b{ color:var(--accent); font-weight:650; }
 @media (max-width:640px){
-  .modal{ width:100vw; max-width:100vw; max-height:92dvh; border-radius:var(--r) var(--r) 0 0;
-          margin:auto auto 0; border-bottom:0; }
+  /* Mobile modal = a centred, floating, internally-scrollable CARD (Mike, tested on Samsung), NOT a
+     bottom sheet. This DELETES the sheet special-case: it's the same idiom as desktop — all-round
+     radius + border (inherited from base .modal) and centred (the dialog UA default margin:auto) —
+     just narrower and shorter, with real gaps top and bottom so it reads as a framed, obviously
+     scrollable panel and clears the phone navigation bar by geometry (no viewport-fit/env needed).
+     dvh (not vh) so the height stays correct as browser chrome shows and hides. */
+  .modal{ width:calc(100vw - 2rem); max-width:calc(100vw - 2rem); max-height:80dvh; }
   /* ---- pinned sticky header, shared by all 21 sheet modals (diagram has no .modal__hd) ----
      The sheet (.modal) is the scroll container; this bar is the first child in that scroll flow,
      so position:sticky pins it to the top however far the content scrolls. It (a) keeps the close
