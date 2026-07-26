@@ -613,7 +613,7 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 .marq__set{ display:flex; align-items:center; gap:clamp(2.2rem, 5vw, 4rem); padding-right:clamp(2.2rem, 5vw, 4rem); }
 @keyframes marq{ from{ transform:translate3d(0,0,0); } to{ transform:translate3d(-50%,0,0); } }
 .marq:hover .marq__track,
-.marq:focus-within .marq__track{ animation-play-state:paused; }
+.marq:has(:focus-visible) .marq__track{ animation-play-state:paused; }
 .lg{
   /* aspect-ratio, not width:auto. An <svg> with a viewBox but no width/height attribute has
      NO intrinsic width, so `width:auto` falls back to the CSS replaced-element default of
@@ -649,6 +649,55 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
   .lg{ transition:none; }
   .lg:hover{ transform:none; }
 }
+
+/* ---- each mark is now a real <button> trigger ---------------------------------------
+   The <button> is a bare wrapper: the mark looks unchanged, but it's keyboard-reachable and
+   works on touch. Colour stays monochrome here — brand colour lives in the modal only, so the
+   bar reads as a stack rather than a sponsor wall. */
+.lg-btn{ display:inline-flex; align-items:center; padding:.45rem; border:0; background:none;
+         color:inherit; cursor:pointer; border-radius:10px; -webkit-tap-highlight-color:transparent; }
+.lg-btn:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+.lg-btn:hover .lg,
+.lg-btn:focus-visible .lg{ color:var(--text); transform:translateY(-3px); }
+/* The whole button box is the tap target — never the SVG ink. Without this, marks with a
+   transparent centre (the AWS wordmark) have a dead spot where a tap falls straight through. */
+.lg-btn .lg{ pointer-events:none; }
+/* Touch has no hover: a press pauses the belt (:active fires on touchstart) so the tap lands on a
+   stationary mark. The belt is slow (~one set-width per 44s), so drift between finger-down and the
+   pause is sub-pixel — measured tap-accuracy on the moving row is in review-marq-mobile.md. */
+.marq:active .marq__track{ animation-play-state:paused; }
+/* The row freezes to a static grid only when someone has SIGNALLED they want it still — a motion
+   preference (below) or keyboard navigation (:has(:focus-visible)) — never merely because the
+   device is a phone. So the marquee rolls on mobile exactly as on desktop; input type is not the
+   switch, motion preference is.
+   :has(:focus-visible), NOT :focus-within — the static grid is a KEYBOARD affordance, so it must
+   fire only when the browser shows a focus ring (keyboard traversal), never on a mouse click.
+   :focus-within also matched a mouse click, and since <dialog> restores focus to the trigger on
+   close, the row stayed frozen/wrapped after a click-opened modal shut, until focus left. */
+.marq:has(:focus-visible) .marq__track{ animation:none; width:auto; flex-wrap:wrap; }
+.marq:has(:focus-visible) .marq__set{ flex-wrap:wrap; justify-content:flex-start; row-gap:1.4rem; padding-right:0; }
+.marq:has(:focus-visible) .marq__set + .marq__set{ display:none; }
+.marq:has(:focus-visible) .marq__win{ -webkit-mask-image:none; mask-image:none; }
+
+/* ---- stack explainer modal: a large brand-coloured mark, the name, Mike's copy (no CTA) ---- */
+.modal--stack .stack-mark{ margin:.1rem 0 1.15rem; }
+.modal--stack .stack-mark .lg{ height:54px; transition:none; }
+.modal--stack .stack-mark .lg:hover{ transform:none; }   /* the modal mark isn't interactive */
+.modal--stack .stack-mark--aws .lg,
+.modal--stack .stack-mark--azure .lg{ height:60px; }      /* wordmark/solid marks read smaller — bump */
+/* Brand colours — MODAL ONLY. The bar stays monochrome. */
+.stack-mark--python .lg{ color:#3776AB; }
+.stack-mark--pytorch .lg{ color:#EE4C2C; }
+.stack-mark--tensorflow .lg{ color:#FF6F00; }
+.stack-mark--langchain .lg{ color:#1C9C8B; }   /* official mark is near-black #1C3C3C — lifted to a legible teal of the same hue for the dark surface (flagged in review) */
+.stack-mark--spark .lg{ color:#E25A1C; }
+.stack-mark--databricks .lg{ color:#FF3621; }
+.stack-mark--snowflake .lg{ color:#29B5E8; }
+.stack-mark--mongodb .lg{ color:#00ED64; }
+.stack-mark--terraform .lg{ color:#7B42BC; }
+.stack-mark--aws .lg{ color:#FF9900; }
+.stack-mark--azure .lg{ color:#0078D4; }
+.stack-mark--googlecloud .lg{ color:#4285F4; }
 
 /* ---------- capability modals -----------------------------------------------------
    Native <dialog> + showModal(): the focus trap, the ESC handling, the inert background
