@@ -466,6 +466,25 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 .vol__list span{ display:block; font-weight:400; color:var(--dim); margin-top:.15rem; }
 .books__note{ margin-top:var(--sp-3); color:var(--muted); font-size:var(--t--1); }
 
+/* Book name-lines open the per-book modal. Same affordance as the capability bullets
+   (.cap__b): a real button, a persistent accent hairline under the title that brightens on
+   hover/focus (so it reads as interactive without a pointer), and a ≥24px target via padding
+   with the space given straight back by a matching negative margin. Only the title is
+   underlined — the subtitle sits on its own dim line below. */
+.bookline{
+  appearance:none; -webkit-appearance:none; background:none; border:0;
+  font:inherit; color:inherit; text-align:left; cursor:pointer;
+  display:block; width:100%; padding:.32rem 0; margin:-.32rem 0;
+}
+.bookline__t{
+  text-decoration:underline; text-decoration-color:rgba(34,211,238,.34);
+  text-decoration-thickness:1px; text-underline-offset:.22em;
+  transition:color .2s ease, text-decoration-color .2s ease, text-shadow .2s ease;
+}
+.bookline:hover .bookline__t,
+.bookline:focus-visible .bookline__t{ color:var(--accent); text-decoration-color:var(--accent); text-shadow:0 0 18px var(--glow); }
+.bookline:focus-visible{ outline:2px solid var(--accent); outline-offset:5px; border-radius:5px; }
+
 /* ---------- about ---------- */
 .about{ display:grid; grid-template-columns:1.6fr 1fr; gap:var(--sp-4); align-items:start; }
 @media (max-width:900px){ .about{ grid-template-columns:1fr; gap:var(--sp-3); } }
@@ -661,6 +680,10 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 }
 .modal__x:hover,.modal__x:focus-visible{ color:var(--text); border-color:var(--accent); }
 .modal__x svg{ width:20px; height:20px; }
+/* Header wrapper around .modal__x. On desktop it's display:contents — no box, so the button keeps
+   its absolute top-right position against .modal__in and desktop is byte-identical. It becomes a
+   real sticky bar only in the mobile-sheet media query below. (The diagram modal has no .modal__hd.) */
+.modal__hd{ display:contents; }
 .modal__kicker{
   margin:0 0 .5rem; font-size:var(--t--1); font-weight:650;
   letter-spacing:.14em; text-transform:uppercase; color:var(--accent);
@@ -682,8 +705,33 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
 }
 .modal__scope b{ color:var(--accent); font-weight:650; }
 @media (max-width:640px){
-  .modal{ width:100vw; max-width:100vw; max-height:92vh; border-radius:var(--r) var(--r) 0 0;
-          margin:auto auto 0; border-bottom:0; }
+  /* Mobile modal = a centred, floating, internally-scrollable CARD (Mike, tested on Samsung), NOT a
+     bottom sheet. This DELETES the sheet special-case: it's the same idiom as desktop — all-round
+     radius + border (inherited from base .modal) and centred (the dialog UA default margin:auto) —
+     just narrower and shorter, with real gaps top and bottom so it reads as a framed, obviously
+     scrollable panel and clears the phone navigation bar by geometry (no viewport-fit/env needed).
+     dvh (not vh) so the height stays correct as browser chrome shows and hides. */
+  .modal{ width:calc(100vw - 2rem); max-width:calc(100vw - 2rem); max-height:80dvh; }
+  /* ---- pinned sticky header, shared by all 21 sheet modals (diagram has no .modal__hd) ----
+     The sheet (.modal) is the scroll container; this bar is the first child in that scroll flow,
+     so position:sticky pins it to the top however far the content scrolls. It (a) keeps the close
+     button always reachable and (b) is opaque and full-bleed, so content slides UNDER a deliberate
+     straight edge instead of being clipped by the rounded top corner (Mike's "amputated cover"). */
+  .modal__hd{
+    display:flex; align-items:center; justify-content:flex-end;
+    position:sticky; top:0; z-index:4; min-height:2.9rem;
+    background:var(--surface); border-radius:var(--r) var(--r) 0 0;
+    border-bottom:1px solid var(--line);
+  }
+  /* Capability sheets: .modal__in pads 1.5rem at <=640px (clamp floor) — negative-margin the bar
+     out to the sheet edges so it masks the full width and covers the rounded corners. */
+  .modal__in > .modal__hd{ margin:-1.5rem -1.5rem 0; padding:0 .55rem 0 1.5rem; }
+  /* Book sheets: .modal__in--book has padding:0, so the bar is already full-bleed. */
+  .modal__in--book > .modal__hd{ margin:0; padding:0 .55rem; }
+  /* The close button drops its absolute positioning and sits inside the flex bar. */
+  .modal__hd .modal__x{ position:static; top:auto; right:auto; width:40px; height:40px; }
+  /* Book cover no longer needs to clear a floating close button; the bar owns the top strip. */
+  .modal--book .book{ padding-top:1.15rem; }
 }
 @media (prefers-reduced-motion: reduce){
   .modal{ transition:opacity .14s linear, overlay .14s allow-discrete, display .14s allow-discrete;
@@ -691,6 +739,39 @@ p{ margin:0 0 var(--sp); text-wrap:pretty; }
   @starting-style{ .modal[open]{ transform:none; } }
 }
 html.modal-open{ overflow:hidden; }
+
+/* ---- per-book modal: cover (revealed here for the first time) + meta + one Amazon link ---- */
+.modal--book .modal__in--book{ padding:0; }
+.book{
+  display:grid; grid-template-columns:auto 1fr; gap:clamp(1.1rem,3vw,1.9rem);
+  align-items:start; padding:clamp(1.5rem, 3.4vw, 2.15rem);
+}
+.book__cover{ width:clamp(140px, 32vw, 210px); }
+.book__cover img{
+  width:100%; height:auto; display:block; border-radius:8px;
+  border:1px solid var(--line-2); box-shadow:0 24px 60px -22px #000;
+}
+.book__meta{ min-width:0; }
+.book__meta .modal__kicker{ margin-top:.15rem; }
+.book__meta .modal__h{ font-size:var(--t-1); }
+.book__sub{ display:block; font-size:var(--t-0); font-weight:400; color:var(--muted); margin-top:.25rem; }
+.book__meta .modal__body{ max-width:none; }
+.book__meta .modal__body p{ font-size:var(--t-0); line-height:1.6; color:#C6D3E4; }
+.book__buy{
+  display:inline-flex; align-items:center; gap:.5rem; margin-top:1.35rem;
+  padding:.72rem 1.15rem; border-radius:9px;
+  background:var(--accent); color:#04121a; font-weight:650; font-size:var(--t--1);
+  letter-spacing:.01em; text-decoration:none;
+  transition:filter .18s ease, transform .18s ease;
+}
+.book__buy:hover{ filter:brightness(1.08); transform:translateY(-1px); }
+.book__buy:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+.book__buy-i{ width:15px; height:15px; flex:0 0 auto; }
+/* narrow phones: stack the cover above the copy so neither gets cramped */
+@media (max-width:520px){
+  .book{ grid-template-columns:1fr; gap:1.1rem; }
+  .book__cover{ width:min(168px, 44%); }
+}
 
 /* ---------- the reveal ------------------------------------------------------------
    position:fixed throughout, so the overlay is outside layout and contributes zero CLS.
